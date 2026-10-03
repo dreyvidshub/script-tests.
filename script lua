@@ -1826,6 +1826,194 @@ BuildHub = function()
 		SetVelocidad = function(t) SUBIDA_TIME = tonumber(t) or SUBIDA_TIME end,
 	}
 
+		-- ---------- PANEL PROPIO DE EGG ADMIN ----------
+		-- Antes vivía dentro del menú; ahora es una ventana flotante que
+		-- aparece cuando Egg Admin está activo y se va cuando lo apagás.
+		local EggShadow = Instance.new("Frame")
+		EggShadow.Size = UDim2.new(0, 238, 0, 140)
+		EggShadow.Position = UDim2.new(0, 10, 0, 404)
+		EggShadow.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+		EggShadow.BackgroundTransparency = 0.5
+		EggShadow.BorderSizePixel = 0
+		EggShadow.ZIndex = 54
+		EggShadow.Parent = ScreenGui
+
+		local EggShadowCorner = Instance.new("UICorner")
+		EggShadowCorner.CornerRadius = UDim.new(0, 16)
+		EggShadowCorner.Parent = EggShadow
+
+		local EggPanel = Instance.new("Frame")
+		EggPanel.Size = UDim2.new(0, 228, 0, 130)
+		EggPanel.Position = UDim2.new(0, 10, 0, 404)
+		EggPanel.BackgroundColor3 = Color3.fromRGB(9, 11, 17)
+		EggPanel.BackgroundTransparency = 0.06
+		EggPanel.BorderSizePixel = 0
+		EggPanel.Active = true
+		EggPanel.Draggable = true
+		EggPanel.ZIndex = 55
+		EggPanel.Parent = ScreenGui
+
+		local EggCorner = Instance.new("UICorner")
+		EggCorner.CornerRadius = UDim.new(0, 14)
+		EggCorner.Parent = EggPanel
+
+		local EggStroke = Instance.new("UIStroke")
+		EggStroke.Color = Color3.fromRGB(90, 190, 130)
+		EggStroke.Thickness = 1.4
+		EggStroke.Transparency = 0.2
+		EggStroke.Parent = EggPanel
+
+		local EggGrad = Instance.new("UIGradient")
+		EggGrad.Color = ColorSequence.new(Color3.fromRGB(24, 34, 30), Color3.fromRGB(9, 13, 13))
+		EggGrad.Rotation = 135
+		EggGrad.Parent = EggPanel
+
+		local EggTitulo = Instance.new("TextLabel")
+		EggTitulo.Size = UDim2.new(1, -70, 0, 18)
+		EggTitulo.Position = UDim2.new(0, 12, 0, 8)
+		EggTitulo.BackgroundTransparency = 1
+		EggTitulo.Text = "Egg Admin"
+		EggTitulo.TextColor3 = Color3.fromRGB(150, 235, 180)
+		EggTitulo.Font = Enum.Font.GothamBold
+		EggTitulo.TextSize = 13
+		EggTitulo.TextXAlignment = Enum.TextXAlignment.Left
+		EggTitulo.ZIndex = 56
+		EggTitulo.Parent = EggPanel
+
+		local EggSub = Instance.new("TextLabel")
+		EggSub.Size = UDim2.new(0, 120, 0, 12)
+		EggSub.Position = UDim2.new(0, 12, 0, 24)
+		EggSub.BackgroundTransparency = 1
+		EggSub.Text = "PLATAFORMA INVISIBLE"
+		EggSub.TextColor3 = Color3.fromRGB(130, 150, 140)
+		EggSub.Font = Enum.Font.GothamMedium
+		EggSub.TextSize = 9
+		EggSub.TextXAlignment = Enum.TextXAlignment.Left
+		EggSub.ZIndex = 56
+		EggSub.Parent = EggPanel
+
+		local EggDot = Instance.new("Frame")
+		EggDot.Size = UDim2.new(0, 7, 0, 7)
+		EggDot.Position = UDim2.new(0, 118, 0, 26)
+		EggDot.BackgroundColor3 = Color3.fromRGB(90, 220, 150)
+		EggDot.BorderSizePixel = 0
+		EggDot.ZIndex = 56
+		EggDot.Parent = EggPanel
+
+		local EggDotCorner = Instance.new("UICorner")
+		EggDotCorner.CornerRadius = UDim.new(1, 0)
+		EggDotCorner.Parent = EggDot
+
+		local EggBoton = Instance.new("TextButton")
+		EggBoton.Size = UDim2.new(1, -24, 0, 24)
+		EggBoton.Position = UDim2.new(0, 12, 0, 42)
+		EggBoton.BackgroundColor3 = Color3.fromRGB(24, 62, 46)
+		EggBoton.Text = "ON  ·  subir con L"
+		EggBoton.TextColor3 = Color3.fromRGB(112, 235, 170)
+		EggBoton.Font = Enum.Font.GothamBold
+		EggBoton.TextSize = 11
+		EggBoton.AutoButtonColor = false
+		EggBoton.ZIndex = 56
+		EggBoton.Parent = EggPanel
+
+		local EggBotonCorner = Instance.new("UICorner")
+		EggBotonCorner.CornerRadius = UDim.new(1, 0)
+		EggBotonCorner.Parent = EggBoton
+
+		local EggBotonStroke = Instance.new("UIStroke")
+		EggBotonStroke.Color = Color3.fromRGB(60, 200, 130)
+		EggBotonStroke.Transparency = 0.3
+		EggBotonStroke.Parent = EggBoton
+
+		local function pintarEgg()
+			local activo = subidaActiva == true
+			EggBoton.Text = activo and "ON  ·  subir con L" or "OFF  ·  apagado"
+			EggBoton.BackgroundColor3 = activo and Color3.fromRGB(24, 62, 46) or Color3.fromRGB(44, 30, 38)
+			EggBoton.TextColor3 = activo and Color3.fromRGB(112, 235, 170) or Color3.fromRGB(200, 140, 140)
+			EggBotonStroke.Color = activo and Color3.fromRGB(60, 200, 130) or Color3.fromRGB(120, 60, 70)
+			EggDot.BackgroundColor3 = activo and Color3.fromRGB(90, 220, 150) or Color3.fromRGB(220, 70, 80)
+		end
+
+		EggBoton.MouseButton1Click:Connect(function()
+			if subidaActiva then
+				subidaDesactivar()
+			else
+				subidaActivar()
+			end
+			pintarEgg()
+			if Gestor then Gestor.Refrescar() end
+		end)
+
+		local function filaEgg(y, etiqueta, valorInicial, paso, minimo, maximo, sufijo, alCambiar)
+			local nombre = Instance.new("TextLabel")
+			nombre.Size = UDim2.new(0, 84, 0, 14)
+			nombre.Position = UDim2.new(0, 12, 0, y)
+			nombre.BackgroundTransparency = 1
+			nombre.Text = etiqueta
+			nombre.TextColor3 = Color3.fromRGB(130, 145, 140)
+			nombre.Font = Enum.Font.GothamMedium
+			nombre.TextSize = 9
+			nombre.TextXAlignment = Enum.TextXAlignment.Left
+			nombre.ZIndex = 56
+			nombre.Parent = EggPanel
+
+			local valor = valorInicial
+			local etiquetaValor
+
+			local function pintar()
+				etiquetaValor.Text = tostring(valor) .. (sufijo or "")
+			end
+
+			local function boton(texto, x, signo)
+				local b = Instance.new("TextButton")
+				b.Size = UDim2.new(0, 20, 0, 20)
+				b.Position = UDim2.new(0, x, 0, y - 3)
+				b.BackgroundColor3 = Color3.fromRGB(26, 34, 30)
+				b.Text = texto
+				b.TextColor3 = Color3.fromRGB(150, 235, 180)
+				b.Font = Enum.Font.GothamBold
+				b.TextSize = 12
+				b.AutoButtonColor = false
+				b.ZIndex = 56
+				b.Parent = EggPanel
+				local c = Instance.new("UICorner")
+				c.CornerRadius = UDim.new(1, 0)
+				c.Parent = b
+				b.MouseButton1Click:Connect(function()
+					valor = math.clamp(valor + signo * paso, minimo, maximo)
+					pintar()
+					alCambiar(valor)
+				end)
+			end
+
+			boton("-", 100, -1)
+
+			etiquetaValor = Instance.new("TextLabel")
+			etiquetaValor.Size = UDim2.new(0, 66, 0, 20)
+			etiquetaValor.Position = UDim2.new(0, 122, 0, y - 3)
+			etiquetaValor.BackgroundColor3 = Color3.fromRGB(20, 26, 34)
+			etiquetaValor.TextColor3 = Color3.fromRGB(200, 245, 220)
+			etiquetaValor.Font = Enum.Font.GothamBold
+			etiquetaValor.TextSize = 10
+			etiquetaValor.ZIndex = 56
+			etiquetaValor.Parent = EggPanel
+			local ec = Instance.new("UICorner")
+			ec.CornerRadius = UDim.new(1, 0)
+			ec.Parent = etiquetaValor
+
+			boton("+", 190, 1)
+			pintar()
+		end
+
+		filaEgg(74, "Altura", SUBIDA_ALTURA, 5, 10, 200, " st", function(v) SUBIDA_ALTURA = v end)
+		filaEgg(100, "Tiempo", SUBIDA_TIME, 0.05, 0.1, 1.5, " s", function(v) SUBIDA_TIME = v end)
+
+		if Gestor then
+			Gestor.Registrar("Egg Admin", {EggShadow, EggPanel}, false, function() return subidaActiva end)
+		end
+
+		pintarEgg()
+
 	AddCleanup(function()
 		SubidaRuntime = nil
 		_G.Subida = nil
@@ -2101,6 +2289,22 @@ BuildHub = function()
 	-- =====================================================
 	do
 		local Est = {}
+
+		-- Qué funciones muestran pastilla en la barra de abajo.
+		local CON_PASTILLA = {
+			["FPS Cap"] = true,
+			["Speed Boost"] = true,
+			["Anti Hit"] = true,
+			["Anti Guard"] = true,
+			["Egg Admin"] = true,
+			["Auto Steal"] = true,
+			["Cola de huevos"] = true,
+			["Auto Hit"] = true,
+			["Hit Aura"] = true,
+			["Vuelo automático"] = true,
+			["Consola"] = true,
+		}
+
 		local Aplicar = {}
 		local Switches = {}
 		local Pills = {}
@@ -2338,7 +2542,13 @@ BuildHub = function()
 			end
 			local sw = Switches[id]
 			if sw then sw.Set(valor) end
-			if valor then PonerPill(id) else QuitarPill(id) end
+			-- Solo las funciones con ventana propia (o las que importan a la vista)
+			-- muestran pastilla abajo; el resto no ensucia la pantalla.
+			if valor and CON_PASTILLA[id] then
+				PonerPill(id)
+			else
+				QuitarPill(id)
+			end
 		end
 
 		-- ---------- stepper en pastilla ----------
@@ -2538,7 +2748,7 @@ BuildHub = function()
 			end)
 			pill.instancia.Position = UDim2.new(1, -90, 0.5, -12)
 			Switches[item.id] = { Set = function(v) pill.Set(v) end }
-			if Est[item.id] then PonerPill(item.id) end
+			if Est[item.id] and CON_PASTILLA[item.id] then PonerPill(item.id) end
 
 			return fila
 		end
@@ -2617,7 +2827,7 @@ BuildHub = function()
 					{id = "Dr Scramble Event", nota = "Este rip no tiene endpoints de Scramble", tipo = "no"},
 					{id = "Auto Treadmill", nota = "Sube a la treadmill y la deja lenta", tipo = "toggle", valor = false},
 					{id = "Auto Claim", nota = "Reclama el Index cada 25 s", tipo = "toggle", valor = false},
-					{id = "Auto Buy Trail", nota = "El endpoint Trails: RequestPurchase es un stub en este rip", tipo = "no"},
+					{id = "Auto Buy Trail", nota = "Compra trails (RF/Trailwear/AskPurchase)", tipo = "toggle", valor = false},
 					{id = "Auto Upgrade", nota = "Mejora la base sola", tipo = "toggle", valor = false},
 				},
 			},
@@ -2625,6 +2835,7 @@ BuildHub = function()
 				nombre = "Visual",
 				items = {
 					{id = "ESP", nota = "Marca huevos, guardias y jugadores", tipo = "toggle", valor = false},
+					{id = "Chams", nota = "Jugadores resaltados a través de paredes", tipo = "toggle", valor = false},
 					{id = "Chasing", nota = "Avisa cuando un guardia te persigue", tipo = "toggle", valor = true},
 					{id = "Predictor", nota = "Proyecta el mejor huevo a x10 cada 20 s", tipo = "toggle", valor = false},
 					{id = "Combat Predictor", nota = "El bate del juego ya auto-elige el objetivo: predecir no cambia nada", tipo = "no"},
@@ -2642,6 +2853,24 @@ BuildHub = function()
 					{id = "Tiempo de subida", nota = "Duración del ascenso", tipo = "stepper",
 						cfg = {min = 0.1, max = 1.5, paso = 0.05, valor = 0.2375, decimales = 2, sufijo = "s"}},
 					{id = "Teclas", nota = "L subir · P apagar", tipo = "info", valorTexto = "L / P"},
+				},
+			},
+			{
+				nombre = "Auto Steal",
+				items = {
+					{id = "Rareza mínima", nota = "0 = todas · 10 = solo lo más raro", tipo = "stepper",
+						cfg = {min = 0, max = 10, paso = 1, valor = 0}},
+					{id = "Valor mínimo", nota = "En millones de income", tipo = "stepper",
+						cfg = {min = 0, max = 1000, paso = 5, valor = 0, sufijo = "m"}},
+					{id = "Prioridad de robo", nota = "1 rareza · 2 tamaño · 3 mutación · 4 valor · 5 menor", tipo = "stepper",
+						cfg = {min = 1, max = 5, paso = 1, valor = 4}},
+					{id = "Velocidad de ida", nota = "Studs/s yendo al huevo", tipo = "stepper",
+						cfg = {min = 50, max = 1000, paso = 50, valor = 300}},
+					{id = "Velocidad de vuelta", nota = "Studs/s volviendo", tipo = "stepper",
+						cfg = {min = 100, max = 2000, paso = 100, valor = 2000}},
+					{id = "Áreas objetivo", nota = "Elegí los biomas donde robar (12)", tipo = "toggle", valor = false},
+					{id = "Prioridad de Rift", nota = "Los huevos que pide el Rift van primeros", tipo = "toggle", valor = false},
+					{id = "Huevos específicos", nota = "Elegí huevo por huevo cuáles robar", tipo = "toggle", valor = false},
 				},
 			},
 			{
@@ -2670,6 +2899,9 @@ BuildHub = function()
 
 		-- ---------- implementaciones ----------
 		local optimizadorGuardado = nil
+		local optimizadorPartes = setmetatable({}, {__mode = "k"})
+		local optimizadorConexion = nil
+		local OptimizadorActivo = false
 		local infJumpConn = nil
 		local antiAfkConn = nil
 		local antiRagdollConns = {}
@@ -2718,22 +2950,119 @@ BuildHub = function()
 
 		Aplicar["Optimizer"] = function(on)
 			if on then
-				if not optimizadorGuardado then
-					optimizadorGuardado = {sombras = Lighting.GlobalShadows, fogEnd = Lighting.FogEnd}
-				end
+				OptimizadorActivo = true
 				pcall(function()
+					optimizadorGuardado = optimizadorGuardado or {}
+					optimizadorGuardado.sombras = optimizadorGuardado.sombras or Lighting.GlobalShadows
+					optimizadorGuardado.fogEnd = optimizadorGuardado.fogEnd or Lighting.FogEnd
+					optimizadorGuardado.difusa = optimizadorGuardado.difusa or Lighting.EnvironmentDiffuseScale
+					optimizadorGuardado.especular = optimizadorGuardado.especular or Lighting.EnvironmentSpecularScale
+					optimizadorGuardado.brillo = optimizadorGuardado.brillo or Lighting.Brightness
 					Lighting.GlobalShadows = false
 					Lighting.FogEnd = 100000
+					Lighting.EnvironmentDiffuseScale = 0
+					Lighting.EnvironmentSpecularScale = 0
+					for _, efecto in ipairs(Lighting:GetChildren()) do
+						if efecto:IsA("PostEffect") then
+							optimizadorGuardado["efecto_" .. efecto.Name] = optimizadorGuardado["efecto_" .. efecto.Name] ~= nil and optimizadorGuardado["efecto_" .. efecto.Name] or efecto.Enabled
+							efecto.Enabled = false
+						end
+					end
 				end)
-			elseif optimizadorGuardado then
+
 				pcall(function()
+					local terreno = Workspace:FindFirstChildOfClass("Terrain")
+					if terreno then
+						optimizadorGuardado.aguaOla = optimizadorGuardado.aguaOla or terreno.WaterWaveSize
+						optimizadorGuardado.aguaVel = optimizadorGuardado.aguaVel or terreno.WaterWaveSpeed
+						optimizadorGuardado.aguaReflejo = optimizadorGuardado.aguaReflejo or terreno.WaterReflectance
+						optimizadorGuardado.aguaTransp = optimizadorGuardado.aguaTransp or terreno.WaterTransparency
+						terreno.WaterWaveSize = 0
+						terreno.WaterWaveSpeed = 0
+						terreno.WaterReflectance = 0
+						terreno.WaterTransparency = 1
+					end
+				end)
+
+				local vistos = 0
+				local function aligerar(inst)
+					vistos = vistos + 1
+					if vistos > 4000 then return end
+					if optimizadorPartes[inst] ~= nil then return end
+					if inst:IsA("MeshPart") then
+						optimizadorPartes[inst] = {tipo = "malla", valor = inst.RenderFidelity}
+						pcall(function() inst.RenderFidelity = Enum.RenderFidelity.Performance end)
+					elseif inst:IsA("BasePart") and inst.CastShadow then
+						optimizadorPartes[inst] = {tipo = "sombra", valor = true}
+						pcall(function() inst.CastShadow = false end)
+					elseif inst:IsA("ParticleEmitter") or inst:IsA("Trail") or inst:IsA("Smoke") or inst:IsA("Fire") or inst:IsA("Sparkles") then
+						optimizadorPartes[inst] = {tipo = "efecto", valor = inst.Enabled}
+						pcall(function() inst.Enabled = false end)
+					elseif inst:IsA("Texture") or inst:IsA("Decal") then
+						optimizadorPartes[inst] = {tipo = "textura", valor = inst.Transparency}
+						pcall(function() inst.Transparency = 1 end)
+					end
+				end
+
+				for _, inst in ipairs(Workspace:GetDescendants()) do
+					aligerar(inst)
+				end
+
+				if not optimizadorConexion then
+					optimizadorConexion = Workspace.DescendantAdded:Connect(function(inst)
+						if OptimizadorActivo then
+							task.defer(function()
+								local ok = pcall(aligerar, inst)
+							end)
+						end
+					end)
+				end
+			else
+				OptimizadorActivo = false
+				if optimizadorConexion then
+					pcall(function() optimizadorConexion:Disconnect() end)
+					optimizadorConexion = nil
+				end
+				for inst, datos in pairs(optimizadorPartes) do
+					if inst and inst.Parent then
+						pcall(function()
+							if datos.tipo == "malla" then
+								inst.RenderFidelity = datos.valor
+							elseif datos.tipo == "sombra" then
+								inst.CastShadow = datos.valor
+							elseif datos.tipo == "efecto" then
+								inst.Enabled = datos.valor
+							elseif datos.tipo == "textura" then
+								inst.Transparency = datos.valor
+							end
+						end)
+					end
+				end
+				optimizadorPartes = setmetatable({}, {__mode = "k"})
+				pcall(function()
+					if not optimizadorGuardado then return end
 					Lighting.GlobalShadows = optimizadorGuardado.sombras
 					Lighting.FogEnd = optimizadorGuardado.fogEnd
+					Lighting.EnvironmentDiffuseScale = optimizadorGuardado.difusa
+					Lighting.EnvironmentSpecularScale = optimizadorGuardado.especular
+					Lighting.Brightness = optimizadorGuardado.brillo
+					for _, efecto in ipairs(Lighting:GetChildren()) do
+						if efecto:IsA("PostEffect") then
+							local original = optimizadorGuardado["efecto_" .. efecto.Name]
+							if original ~= nil then efecto.Enabled = original end
+						end
+					end
+					local terreno = Workspace:FindFirstChildOfClass("Terrain")
+					if terreno then
+						terreno.WaterWaveSize = optimizadorGuardado.aguaOla or 0.15
+						terreno.WaterWaveSpeed = optimizadorGuardado.aguaVel or 10
+						terreno.WaterReflectance = optimizadorGuardado.aguaReflejo or 0
+						terreno.WaterTransparency = optimizadorGuardado.aguaTransp or 1
+					end
 				end)
 				optimizadorGuardado = nil
 			end
 		end
-
 		Aplicar["FPS Cap"] = function(valor)
 			if setfpscap then
 				pcall(setfpscap, math.floor(valor))
@@ -3269,6 +3598,10 @@ BuildHub = function()
 		local TarjetaAbierta = false
 		local Orden = 0
 		local ModoOrden = 1
+		local Filtros = {}
+		local Prioridad = 4
+		local UltimaLista = {}
+		local Preferidos = nil
 
 		-- ---------- aviso arriba ----------
 		Noti = Instance.new("Frame")
@@ -3707,7 +4040,7 @@ BuildHub = function()
 			rareza.Size = UDim2.new(1, -140, 0, 13)
 			rareza.Position = UDim2.new(0, 46, 0, 21)
 			rareza.BackgroundTransparency = 1
-			rareza.Text = datos.rarityTexto or ""
+			rareza.Text = (datos.rarityTexto or "") .. (datos.rift and "  ·  RIFT" or "")
 			rareza.TextColor3 = datos.rarityColor or Color3.fromRGB(170, 150, 235)
 			rareza.Font = Enum.Font.GothamMedium
 			rareza.TextSize = 9
@@ -3759,19 +4092,48 @@ BuildHub = function()
 				referencia.fila:Destroy()
 			end
 			Filas = {}
-			table.sort(Datos, function(a, b)
-				if ModoOrden == 2 then
+			local visibles = {}
+			for _, item in ipairs(Datos) do
+				local pasa = true
+				for _, funcionFiltro in pairs(Filtros) do
+					if funcionFiltro(item) == false then
+						pasa = false
+						break
+					end
+				end
+				if pasa then
+					table.insert(visibles, item)
+				end
+			end
+			-- Prioridades de robo: 1 rareza · 2 tamaño · 3 mutaciones · 4 mayor valor · 5 menor valor
+			table.sort(visibles, function(a, b)
+				if Preferidos then
+					local pa = Preferidos(a) and 1 or 0
+					local pb = Preferidos(b) and 1 or 0
+					if pa ~= pb then
+						return pa > pb
+					end
+				end
+				if Prioridad == 1 then
 					return (a.rarityRank or 0) > (b.rarityRank or 0)
-				elseif ModoOrden == 3 then
+				end
+				if Prioridad == 2 then
 					return (a.escala or 0) > (b.escala or 0)
+				end
+				if Prioridad == 3 then
+					return #(a.mutaciones or {}) > #(b.mutaciones or {})
+				end
+				if Prioridad == 5 then
+					return (a.income or 0) < (b.income or 0)
 				end
 				return (a.income or 0) > (b.income or 0)
 			end)
-			for i = 1, #Datos do
-				CrearFila(Datos[i], i)
+			UltimaLista = visibles
+			for i = 1, #UltimaLista do
+				CrearFila(UltimaLista[i], i)
 			end
-			Lista.CanvasSize = UDim2.new(0, 0, 0, #Datos * 46 + 4)
-			ContadorLabel.Text = (#Datos == 0) and "Leyendo objetivos..." or (#Datos .. " objetivos en el campo")
+			Lista.CanvasSize = UDim2.new(0, 0, 0, #UltimaLista * 46 + 4)
+			ContadorLabel.Text = (#Datos == 0) and "Leyendo objetivos..." or (#UltimaLista .. " de " .. #Datos .. " objetivos")
 		end
 
 		-- ---------- acción ----------
@@ -3825,7 +4187,26 @@ BuildHub = function()
 				return Seleccionado
 			end,
 			Mejor = function()
-				return Datos[1]
+				return UltimaLista[1]
+			end,
+			Visibles = function()
+				return UltimaLista
+			end,
+			SetFiltro = function(clave, fn)
+				if fn == nil then
+					Filtros[clave] = nil
+				else
+					Filtros[clave] = fn
+				end
+				Render()
+			end,
+			SetPreferidos = function(fn)
+				Preferidos = fn
+				Render()
+			end,
+			SetPrioridad = function(numero)
+				Prioridad = math.clamp(math.floor(tonumber(numero) or 4), 1, 5)
+				Render()
 			end,
 			Lista = function()
 				return Datos
@@ -4099,6 +4480,10 @@ BuildHub = function()
 			end,
 			Refrescar = Refrescar,
 			Volver = VolverRapido,
+			SetVelocidades = function(ida, vuelta)
+				VEL_IDA = math.clamp(tonumber(ida) or VEL_IDA, 50, 1000)
+				VEL_VUELTA = math.clamp(tonumber(vuelta) or VEL_VUELTA, 100, 2000)
+			end,
 			Zonas = {segura = SAFE, campo = CAMPO, aterrizaje = ZONA_ATERRIZAJE},
 			Velocidades = {ida = VEL_IDA, vuelta = VEL_VUELTA},
 		}
@@ -4168,6 +4553,25 @@ BuildHub = function()
 			return pos.X >= 365.3 and pos.X <= 551.4 and pos.Z >= -581.4 and pos.Z <= -146.9
 		end
 
+		-- ---------- ventana propia del Anti Guard ----------
+		local RadioAntiGuard = 40
+		local ContadorAntiGuard = 0
+		local EstadoAntiGuard = "libre"
+		local CercaAntiGuard = nil
+
+		-- posición de un guardia
+		local function PosicionDe(inst)
+			if not inst or not inst.Parent then return nil end
+			if inst:IsA("BasePart") then return inst.Position end
+			local principal = nil
+			if inst:IsA("Model") then
+				principal = inst.PrimaryPart or inst:FindFirstChildWhichIsA("BasePart")
+			else
+				principal = inst:FindFirstChildWhichIsA("BasePart", true)
+			end
+			return principal and principal.Position or nil
+		end
+
 		local function Escapar()
 			if Escapando then return end
 			local motor = Objetivos and Objetivos.Robo and Objetivos.Robo()
@@ -4176,6 +4580,8 @@ BuildHub = function()
 			local hrp = char and char:FindFirstChild("HumanoidRootPart")
 			if not hrp or EnZonaSegura(hrp.Position) then return end
 			Escapando = true
+			ContadorAntiGuard = ContadorAntiGuard + 1
+			EstadoAntiGuard = "escapando a la zona segura"
 			task.spawn(function()
 				if Objetivos then Objetivos.Notificar("Guardia encima: escapando a la zona segura", false) end
 				pcall(motor.Volver)
@@ -4188,7 +4594,12 @@ BuildHub = function()
 				UltimoEscaneo = os.clock()
 				pcall(BuscarGuardias)
 			end
-			if #Guardias == 0 then return end
+			if #Guardias == 0 then
+				EstadoAntiGuard = "sin guardias cerca"
+				return
+			end
+			EstadoAntiGuard = "vigilando"
+			CercaAntiGuard = nil
 
 			for _, guardia in ipairs(Guardias) do
 				if guardia.Parent then
@@ -4207,8 +4618,23 @@ BuildHub = function()
 								end
 							end
 						end
+						local posicionGuardia = PosicionDe(guardia)
+						local personaje = LocalPlayer.Character
+						local raiz = personaje and personaje:FindFirstChild("HumanoidRootPart")
+						local distancia = nil
+						if posicionGuardia and raiz then
+							distancia = (posicionGuardia - raiz.Position).Magnitude
+						end
+						if distancia and (CercaAntiGuard == nil or distancia < CercaAntiGuard) then
+							CercaAntiGuard = distancia
+						end
+						if EstadoAntiGuard ~= "escapando a la zona segura" and distancia then
+							EstadoAntiGuard = tostring(estado) .. " a " .. tostring(math.floor(distancia)) .. " st"
+						end
 						if AntiGuardOn and estado == "Chasing" then
-							Escapar()
+							if not distancia or distancia <= RadioAntiGuard then
+								Escapar()
+							end
 						end
 					end
 				end
@@ -4241,6 +4667,215 @@ BuildHub = function()
 			end)
 		end
 
+		local AntiShadow = Instance.new("Frame")
+		AntiShadow.Size = UDim2.new(0, 222, 0, 152)
+		AntiShadow.Position = UDim2.new(0, 10, 0, 42)
+		AntiShadow.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+		AntiShadow.BackgroundTransparency = 0.5
+		AntiShadow.BorderSizePixel = 0
+		AntiShadow.ZIndex = 54
+		AntiShadow.Parent = ScreenGui
+
+		local AntiShadowCorner = Instance.new("UICorner")
+		AntiShadowCorner.CornerRadius = UDim.new(0, 16)
+		AntiShadowCorner.Parent = AntiShadow
+
+		local AntiPanel = Instance.new("Frame")
+		AntiPanel.Size = UDim2.new(0, 212, 0, 142)
+		AntiPanel.Position = UDim2.new(0, 10, 0, 42)
+		AntiPanel.BackgroundColor3 = Color3.fromRGB(9, 11, 17)
+		AntiPanel.BackgroundTransparency = 0.06
+		AntiPanel.BorderSizePixel = 0
+		AntiPanel.Active = true
+		AntiPanel.Draggable = true
+		AntiPanel.ZIndex = 55
+		AntiPanel.Parent = ScreenGui
+
+		local AntiCorner = Instance.new("UICorner")
+		AntiCorner.CornerRadius = UDim.new(0, 14)
+		AntiCorner.Parent = AntiPanel
+
+		local AntiStroke = Instance.new("UIStroke")
+		AntiStroke.Color = Color3.fromRGB(230, 150, 90)
+		AntiStroke.Thickness = 1.4
+		AntiStroke.Transparency = 0.2
+		AntiStroke.Parent = AntiPanel
+
+		local AntiGrad = Instance.new("UIGradient")
+		AntiGrad.Color = ColorSequence.new(Color3.fromRGB(34, 28, 22), Color3.fromRGB(11, 11, 15))
+		AntiGrad.Rotation = 135
+		AntiGrad.Parent = AntiPanel
+
+		local AntiTitulo = Instance.new("TextLabel")
+		AntiTitulo.Size = UDim2.new(1, -70, 0, 18)
+		AntiTitulo.Position = UDim2.new(0, 12, 0, 8)
+		AntiTitulo.BackgroundTransparency = 1
+		AntiTitulo.Text = "Anti Guard"
+		AntiTitulo.TextColor3 = Color3.fromRGB(255, 200, 140)
+		AntiTitulo.Font = Enum.Font.GothamBold
+		AntiTitulo.TextSize = 13
+		AntiTitulo.TextXAlignment = Enum.TextXAlignment.Left
+		AntiTitulo.ZIndex = 56
+		AntiTitulo.Parent = AntiPanel
+
+		local AntiDot = Instance.new("Frame")
+		AntiDot.Size = UDim2.new(0, 7, 0, 7)
+		AntiDot.Position = UDim2.new(1, -24, 0, 13)
+		AntiDot.BackgroundColor3 = Color3.fromRGB(230, 70, 80)
+		AntiDot.BorderSizePixel = 0
+		AntiDot.ZIndex = 56
+		AntiDot.Parent = AntiPanel
+
+		local AntiDotCorner = Instance.new("UICorner")
+		AntiDotCorner.CornerRadius = UDim.new(1, 0)
+		AntiDotCorner.Parent = AntiDot
+
+		local AntiBoton = Instance.new("TextButton")
+		AntiBoton.Size = UDim2.new(1, -24, 0, 22)
+		AntiBoton.Position = UDim2.new(0, 12, 0, 30)
+		AntiBoton.BackgroundColor3 = Color3.fromRGB(44, 30, 38)
+		AntiBoton.Text = "OFF"
+		AntiBoton.TextColor3 = Color3.fromRGB(200, 140, 140)
+		AntiBoton.Font = Enum.Font.GothamBold
+		AntiBoton.TextSize = 10
+		AntiBoton.AutoButtonColor = false
+		AntiBoton.ZIndex = 56
+		AntiBoton.Parent = AntiPanel
+
+		local AntiBotonCorner = Instance.new("UICorner")
+		AntiBotonCorner.CornerRadius = UDim.new(1, 0)
+		AntiBotonCorner.Parent = AntiBoton
+
+		local AntiBotonStroke = Instance.new("UIStroke")
+		AntiBotonStroke.Color = Color3.fromRGB(120, 60, 70)
+		AntiBotonStroke.Transparency = 0.3
+		AntiBotonStroke.Parent = AntiBoton
+
+		local function pintarAnti()
+			AntiBoton.Text = AntiGuardOn and ("ON  ·  radio " .. tostring(RadioAntiGuard) .. " st") or "OFF"
+			AntiBoton.BackgroundColor3 = AntiGuardOn and Color3.fromRGB(60, 44, 24) or Color3.fromRGB(44, 30, 38)
+			AntiBoton.TextColor3 = AntiGuardOn and Color3.fromRGB(255, 205, 140) or Color3.fromRGB(200, 140, 140)
+			AntiBotonStroke.Color = AntiGuardOn and Color3.fromRGB(210, 150, 70) or Color3.fromRGB(120, 60, 70)
+			AntiDot.BackgroundColor3 = AntiGuardOn and Color3.fromRGB(90, 220, 150) or Color3.fromRGB(230, 70, 80)
+		end
+
+		AntiBoton.MouseButton1Click:Connect(function()
+			AntiGuardOn = not AntiGuardOn
+			if AntiGuardOn then
+				UltimoEscaneo = 0
+				pcall(BuscarGuardias)
+			end
+			pintarAnti()
+			if Gestor then Gestor.Refrescar() end
+		end)
+
+		local AntiRadio = Instance.new("TextLabel")
+		AntiRadio.Size = UDim2.new(0, 62, 0, 20)
+		AntiRadio.Position = UDim2.new(0, 74, 0, 58)
+		AntiRadio.BackgroundColor3 = Color3.fromRGB(26, 30, 40)
+		AntiRadio.Text = tostring(RadioAntiGuard) .. " st"
+		AntiRadio.TextColor3 = Color3.fromRGB(255, 210, 160)
+		AntiRadio.Font = Enum.Font.GothamBold
+		AntiRadio.TextSize = 10
+		AntiRadio.ZIndex = 56
+		AntiRadio.Parent = AntiPanel
+
+		local AntiRadioCorner = Instance.new("UICorner")
+		AntiRadioCorner.CornerRadius = UDim.new(1, 0)
+		AntiRadioCorner.Parent = AntiRadio
+
+		local AntiEtiqueta = Instance.new("TextLabel")
+		AntiEtiqueta.Size = UDim2.new(0, 60, 0, 20)
+		AntiEtiqueta.Position = UDim2.new(0, 12, 0, 58)
+		AntiEtiqueta.BackgroundTransparency = 1
+		AntiEtiqueta.Text = "Radio"
+		AntiEtiqueta.TextColor3 = Color3.fromRGB(140, 140, 160)
+		AntiEtiqueta.Font = Enum.Font.GothamMedium
+		AntiEtiqueta.TextSize = 9
+		AntiEtiqueta.TextXAlignment = Enum.TextXAlignment.Left
+		AntiEtiqueta.ZIndex = 56
+		AntiEtiqueta.Parent = AntiPanel
+
+		local function botonAnti(texto, x, signo)
+			local b = Instance.new("TextButton")
+			b.Size = UDim2.new(0, 20, 0, 20)
+			b.Position = UDim2.new(0, x, 0, 58)
+			b.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+			b.Text = texto
+			b.TextColor3 = Color3.fromRGB(255, 205, 140)
+			b.Font = Enum.Font.GothamBold
+			b.TextSize = 12
+			b.AutoButtonColor = false
+			b.ZIndex = 56
+			b.Parent = AntiPanel
+			local c = Instance.new("UICorner")
+			c.CornerRadius = UDim.new(1, 0)
+			c.Parent = b
+			b.MouseButton1Click:Connect(function()
+				RadioAntiGuard = math.clamp(RadioAntiGuard + signo * 10, 10, 200)
+				AntiRadio.Text = tostring(RadioAntiGuard) .. " st"
+				pintarAnti()
+			end)
+		end
+
+		botonAnti("-", 48, -1)
+		botonAnti("+", 142, 1)
+
+		local AntiEstado = Instance.new("TextLabel")
+		AntiEstado.Size = UDim2.new(1, -24, 0, 14)
+		AntiEstado.Position = UDim2.new(0, 12, 0, 84)
+		AntiEstado.BackgroundTransparency = 1
+		AntiEstado.Text = "sin guardias cerca"
+		AntiEstado.TextColor3 = Color3.fromRGB(150, 160, 185)
+		AntiEstado.Font = Enum.Font.GothamMedium
+		AntiEstado.TextSize = 9
+		AntiEstado.TextXAlignment = Enum.TextXAlignment.Left
+		AntiEstado.ZIndex = 56
+		AntiEstado.Parent = AntiPanel
+
+		local AntiContador = Instance.new("TextLabel")
+		AntiContador.Size = UDim2.new(1, -24, 0, 14)
+		AntiContador.Position = UDim2.new(0, 12, 0, 100)
+		AntiContador.BackgroundTransparency = 1
+		AntiContador.Text = "escapes: 0"
+		AntiContador.TextColor3 = Color3.fromRGB(200, 160, 120)
+		AntiContador.Font = Enum.Font.GothamBold
+		AntiContador.TextSize = 9
+		AntiContador.TextXAlignment = Enum.TextXAlignment.Left
+		AntiContador.ZIndex = 56
+		AntiContador.Parent = AntiPanel
+
+		local AntiNota = Instance.new("TextLabel")
+		AntiNota.Size = UDim2.new(1, -24, 0, 14)
+		AntiNota.Position = UDim2.new(0, 12, 0, 118)
+		AntiNota.BackgroundTransparency = 1
+		AntiNota.Text = "escapa a la zona segura cuando te enganchan"
+		AntiNota.TextColor3 = Color3.fromRGB(110, 120, 145)
+		AntiNota.Font = Enum.Font.GothamMedium
+		AntiNota.TextSize = 8
+		AntiNota.TextXAlignment = Enum.TextXAlignment.Left
+		AntiNota.ZIndex = 56
+		AntiNota.Parent = AntiPanel
+
+		task.spawn(function()
+			while ScreenGui.Parent do
+				task.wait(0.5)
+				if AntiPanel.Visible then
+					pintarAnti()
+					AntiEstado.Text = EstadoAntiGuard
+					AntiContador.Text = "escapes: " .. tostring(ContadorAntiGuard)
+				end
+			end
+		end)
+
+		if Gestor then
+			Gestor.Registrar("Anti Guard", {AntiShadow, AntiPanel}, false, function()
+				return AntiGuardOn
+			end)
+		end
+
+		pintarAnti()
+
 		AddCleanup(function()
 			ChasingOn = false
 			AntiGuardOn = false
@@ -4250,29 +4885,74 @@ BuildHub = function()
 
 	-- =====================================================
 	-- CAPA DEL JUEGO: huevos reales -> lista de objetivos + agarre
-	-- Claves y firmas sacadas del volcado del .rbxl:
-	--   EggCmds.RequestAreaEggSnapshot()          -> {Records, ServerTime}
-	--   EggCmds.RequestCarryAreaEgg(uid)          -> ok
-	--   EggCmds.RequestDropHeldAreaEgg("PlayerRequest")
-	--   EggCmds.RequestPlaceEgg(uid, CFrame)      -> ok
-	--   EggCmds.RequestHatchEgg(uid) / RequestCompleteHatchEgg(uid)
-	--   EggCmds.IsLocalEggReady(uid)
+	-- Rutas del juego REAL (sacadas del hub de Chilli, que corre en el juego):
+	--   ReplicatedStorage.Client.EggState      -> ReadFieldEggs / CarryFieldEgg /
+	--                                             DropFieldEgg / IsReadyToHatch /
+	--                                             PlantEgg / WearEggTool
+	--   ReplicatedStorage.Data.Assets          -> .Directory[categoria]
+	--   ReplicatedStorage.Shared.Save          -> .Get()
+	--   ReplicatedStorage.Packages.Networking  -> remotes "RF/..." y "RE/..."
+	-- Si alguna no existe, se intenta la ruta del rip moddeado.
 	-- =====================================================
 	local Juego = nil
 	do
-		local EggCmds = nil
-		local Assets = nil
-		local ErrorCarga = nil
-
-		local okCarga = pcall(function()
-			EggCmds = require(ReplicatedStorage.Library.Client.EggCmds)
-			Assets = require(ReplicatedStorage.Directory.Assets)
-		end)
-		if not okCarga then
-			ErrorCarga = "no pude cargar EggCmds"
+		local function intentar(rutas)
+			for _, fn in ipairs(rutas) do
+				local ok, modulo = pcall(fn)
+				if ok and modulo ~= nil then
+					return modulo
+				end
+			end
+			return nil
 		end
 
+		local EggState = intentar({
+			function() return require(ReplicatedStorage.Client.EggState) end,
+			function() return require(ReplicatedStorage.Library.Client.EggCmds) end,
+		})
+		local Assets = intentar({
+			function() return require(ReplicatedStorage.Data.Assets) end,
+			function() return require(ReplicatedStorage.Directory.Assets) end,
+		})
+		local Save = intentar({
+			function() return require(ReplicatedStorage.Shared.Save) end,
+			function() return require(ReplicatedStorage.Library.Client.Save) end,
+		})
+		local Mutations = intentar({
+			function() return require(ReplicatedStorage.Shared.Modules.Mutations) end,
+		})
+		local Networking = nil
+		pcall(function()
+			local paquetes = ReplicatedStorage:FindFirstChild("Packages")
+			Networking = paquetes and paquetes:FindFirstChild("Networking")
+		end)
+
+		local cargados = {}
+		if EggState then table.insert(cargados, "EggState") end
+		if Assets then table.insert(cargados, "Assets") end
+		if Save then table.insert(cargados, "Save") end
+		if Mutations then table.insert(cargados, "Mutations") end
+		if Networking then table.insert(cargados, "Networking") end
+
+		-- ---------- remotes por nombre (juego real) ----------
+		local function Invocar(nombre, ...)
+			if not Networking then return nil end
+			local remoto = Networking:FindFirstChild(nombre)
+			if not remoto or not remoto:IsA("RemoteFunction") then return nil end
+			local ok, a = pcall(remoto.InvokeServer, remoto, ...)
+			return ok and a or nil
+		end
+
+		local function Disparar(nombre, ...)
+			if not Networking then return false end
+			local remoto = Networking:FindFirstChild(nombre)
+			if not remoto or not remoto:IsA("RemoteEvent") then return false end
+			return pcall(remoto.FireServer, remoto, ...)
+		end
+
+		-- ---------- helpers ----------
 		local function FormatoCorto(n)
+			if type(n) ~= "number" then return "?" end
 			if n >= 1e12 then return string.format("%.2fT", n / 1e12) end
 			if n >= 1e9 then return string.format("%.2fB", n / 1e9) end
 			if n >= 1e6 then return string.format("%.2fm", n / 1e6) end
@@ -4280,7 +4960,6 @@ BuildHub = function()
 			return tostring(math.floor(n + 0.5))
 		end
 
-		-- Fórmula de crecimiento del juego (según la investigación del hub anterior)
 		local function Crecimiento(escala)
 			if escala > 5 then
 				return (escala / 5) ^ 1.2 * 19.637875755794113
@@ -4288,94 +4967,135 @@ BuildHub = function()
 			return escala ^ 1.85
 		end
 
-		local COLORES_RAREZA = {
-			Common = Color3.fromRGB(190, 200, 215),
-			Uncommon = Color3.fromRGB(120, 220, 140),
-			Rare = Color3.fromRGB(110, 180, 255),
-			Epic = Color3.fromRGB(190, 130, 255),
-			Legendary = Color3.fromRGB(255, 190, 90),
-			Mythic = Color3.fromRGB(255, 120, 120),
-			Divine = Color3.fromRGB(255, 240, 160),
-			Secret = Color3.fromRGB(255, 140, 230),
-			Spirit = Color3.fromRGB(200, 160, 255)
+		local function PosicionDe(registro)
+			for _, campo in ipairs({"BottomCFrame", "CFrame", "LocalCFrame", "Position"}) do
+				local valor = registro[campo]
+				if typeof(valor) == "CFrame" then
+					return valor.Position
+				elseif typeof(valor) == "Vector3" then
+					return valor
+				elseif type(valor) == "table" and #valor >= 3 then
+					return Vector3.new(tonumber(valor[1]) or 0, tonumber(valor[2]) or 0, tonumber(valor[3]) or 0)
+				end
+			end
+			return nil
+		end
+
+		local COLORES = {
+			Common = Color3.fromRGB(190, 200, 215), Uncommon = Color3.fromRGB(120, 220, 140),
+			Rare = Color3.fromRGB(110, 180, 255), Epic = Color3.fromRGB(190, 130, 255),
+			Legendary = Color3.fromRGB(255, 190, 90), Mythic = Color3.fromRGB(255, 120, 120),
+			Divine = Color3.fromRGB(255, 240, 160), Secret = Color3.fromRGB(255, 140, 230),
+			Spirit = Color3.fromRGB(200, 160, 255), Cosmic = Color3.fromRGB(140, 200, 255),
+			Eternal = Color3.fromRGB(180, 255, 230),
 		}
 
+		-- ---------- lectura del campo ----------
+		local function RegistrosDelCampo()
+			if not EggState then return nil, "sin EggState" end
+
+			if type(EggState.ReadFieldEggs) == "function" then
+				local ok, res = pcall(EggState.ReadFieldEggs)
+				if ok and type(res) == "table" then
+					if type(res.Records) == "table" then return res.Records end
+					return res
+				end
+			end
+
+			if type(EggState.RequestAreaEggSnapshot) == "function" then
+				pcall(EggState.RequestAreaEggSnapshot)
+				local ok, res = pcall(EggState.GetAreaEggSnapshot)
+				if ok and type(res) == "table" and type(res.Records) == "table" then
+					return res.Records
+				end
+			end
+
+			return nil, "sin función de lectura"
+		end
+
 		local function LeerHuevos()
-			if not EggCmds then return {} end
-			pcall(function() EggCmds.RequestAreaEggSnapshot() end)
-			local snapshot = EggCmds.GetAreaEggSnapshot()
-			local registros = snapshot and snapshot.Records or {}
+			local registros, error1 = RegistrosDelCampo()
+			if not registros then return {} end
+
 			local lista = {}
-			for _, registro in ipairs(registros) do
-				local estado = registro.State
-				if estado == "Slot" or estado == "Dropped" then
-					local categoria = registro.AssetCategory
-					local cfg = Assets and Assets.Directory and Assets.Directory[categoria]
-					local nombre = categoria
-					local icono = nil
-					local rarezaId = nil
-					local rarityRank = 0
-					local incomeBase = 0
+			for _, registro in pairs(registros) do
+				if type(registro) == "table" then
+					local estado = registro.State
+					if estado == nil or estado == "Slot" or estado == "Dropped" then
+						local categoria = registro.AssetCategory or registro.AssetId or registro.Category
+						local cfg = categoria and Assets and Assets.Directory and Assets.Directory[categoria] or nil
+						local nombre = (cfg and (cfg.DisplayName or cfg.Name)) or tostring(categoria or "?")
+						local rareza = cfg and cfg.Rarity or nil
+						local rarezaId = rareza and (rareza.DisplayName or rareza._id) or nil
+						local rarezaNum = rareza and tonumber(rareza.RarityNumber or rareza.Rank) or 0
+						local incomeBase = cfg and tonumber(cfg.EarningRate) or 0
+						local escala = tonumber(registro.AssetScale or registro.Scale) or 1
+						local mutaciones = registro.Mutations or {}
+						local income = incomeBase * Crecimiento(escala)
+						if #mutaciones > 0 and Mutations and type(Mutations.EarningsFor) == "function" then
+							local ok, extra = pcall(Mutations.EarningsFor, registro)
+							if ok and type(extra) == "number" and extra > 0 then
+								income = extra
+							end
+						elseif #mutaciones > 0 then
+							income = income * (1 + #mutaciones * 0.25)
+						end
 
-					if cfg then
-						nombre = cfg.DisplayName or cfg.Name or cfg.Label or categoria
-						icono = cfg.Icon or cfg.Thumbnail or cfg.Image
-						rarezaId = cfg.Rarity and (cfg.Rarity.DisplayName or cfg.Rarity._id)
-						rarityRank = (cfg.Rarity and cfg.Rarity.RarityNumber) or 0
-						incomeBase = cfg.EarningRate or cfg.Income or cfg.BaseIncome or 0
+						table.insert(lista, {
+							id = registro.Uid or registro.uid,
+							uid = registro.Uid or registro.uid,
+							nombre = nombre,
+							categoria = categoria,
+							icono = cfg and (cfg.Icon or cfg.Thumbnail) or nil,
+							area = registro.AreaId,
+							posicion = PosicionDe(registro),
+							income = income,
+							incomeTexto = FormatoCorto(income),
+							tamanoTexto = string.format("%.2fx", escala),
+							escala = escala,
+							rarityTexto = rarezaId,
+							rarityRank = rarezaNum,
+							rarityColor = rarezaId and COLORES[rarezaId] or nil,
+							mutaciones = mutaciones,
+						})
 					end
-
-					local escala = registro.AssetScale or 1
-					local income = incomeBase * Crecimiento(escala)
-					local mutaciones = registro.Mutations or {}
-					if #mutaciones > 0 and incomeBase > 0 then
-						income = income * (1 + #mutaciones * 0.25)
-					end
-
-					local posicion = nil
-					local okPos, bottom = pcall(function() return registro.BottomCFrame end)
-					if okPos and typeof(bottom) == "CFrame" then
-						posicion = bottom.Position
-					end
-
-					table.insert(lista, {
-						id = registro.Uid,
-						uid = registro.Uid,
-						nombre = nombre,
-						icono = icono,
-						area = registro.AreaId,
-						posicion = posicion,
-						income = income,
-						escala = escala,
-						rarityRank = rarityRank,
-						incomeTexto = FormatoCorto(income),
-						tamanoTexto = string.format("%.2fx", escala),
-						rarityTexto = rarezaId,
-						rarityColor = rarezaId and COLORES_RAREZA[rarezaId] or nil,
-						mutaciones = mutaciones
-					})
 				end
 			end
 			return lista
 		end
 
+		-- ---------- acciones ----------
 		local function Agarrar(datos)
-			if not EggCmds then return false end
-			local ok, exito = pcall(EggCmds.RequestCarryAreaEgg, datos.uid)
-			return ok and exito ~= false
+			if not EggState or not datos or not datos.uid then return false end
+			if type(EggState.CarryFieldEgg) == "function" then
+				local ok, exito = pcall(EggState.CarryFieldEgg, datos.uid)
+				return ok and exito ~= false
+			end
+			if type(EggState.RequestCarryAreaEgg) == "function" then
+				local ok, exito = pcall(EggState.RequestCarryAreaEgg, datos.uid)
+				return ok and exito ~= false
+			end
+			return false
 		end
 
 		local function Soltar()
-			if not EggCmds then return false end
-			local ok, exito = pcall(EggCmds.RequestDropHeldAreaEgg, "PlayerRequest")
-			return ok and exito ~= false
+			if not EggState then return false end
+			if type(EggState.DropFieldEgg) == "function" then
+				local ok, exito = pcall(EggState.DropFieldEgg, "PlayerRequest")
+				return ok and exito ~= false
+			end
+			if type(EggState.RequestDropHeldAreaEgg) == "function" then
+				local ok, exito = pcall(EggState.RequestDropHeldAreaEgg, "PlayerRequest")
+				return ok and exito ~= false
+			end
+			return false
 		end
 
-		local function HuevoCargado()
-			if not EggCmds then return nil end
-			local snapshot = EggCmds.GetAreaEggSnapshot()
-			for _, registro in ipairs((snapshot and snapshot.Records) or {}) do
-				if registro.State == "Carried" and registro.CarrierUserId == LocalPlayer.UserId then
+		local function Cargado()
+			local registros = RegistrosDelCampo()
+			if not registros then return nil end
+			for _, registro in pairs(registros) do
+				if type(registro) == "table" and registro.State == "Carried" and registro.CarrierUserId == LocalPlayer.UserId then
 					return registro
 				end
 			end
@@ -4387,25 +5107,34 @@ BuildHub = function()
 		local HatchCooldown = {}
 		task.spawn(function()
 			while ScreenGui.Parent do
-				task.wait(1.5)
-				if HatchOn and EggCmds then
-					local ok, snapshot = pcall(function() return EggCmds.GetRuntimeSnapshot() end)
-					if ok and type(snapshot) == "table" then
-						for _, entrada in ipairs(snapshot) do
-							if entrada.OwnerUserId == LocalPlayer.UserId then
-								for uid in pairs(entrada.Records or {}) do
-									local listo = false
-									pcall(function() listo = EggCmds.IsLocalEggReady(uid) == true end)
-									if listo and (HatchCooldown[uid] or 0) < os.clock() then
-										HatchCooldown[uid] = os.clock() + 6
-										pcall(function() EggCmds.RequestHatchEgg(uid) end)
-										task.wait(0.35)
-										pcall(function() EggCmds.RequestCompleteHatchEgg(uid) end)
-										if Objetivos then
-											Objetivos.Notificar("Eclosionando huevo", true)
-										end
+				task.wait(2)
+				if HatchOn and EggState then
+					local datos
+					pcall(function()
+						if type(EggState.ReadOwnerEggs) == "function" then
+							datos = EggState.ReadOwnerEggs(LocalPlayer.UserId)
+						end
+					end)
+					if type(datos) == "table" then
+						local registros = datos.Records or datos
+						for uid in pairs(registros) do
+							local listo = false
+							pcall(function()
+								listo = EggState.IsReadyToHatch(uid) == true
+							end)
+							if listo and (HatchCooldown[uid] or 0) < os.clock() then
+								HatchCooldown[uid] = os.clock() + 8
+								local hecho = false
+								for _, nombre in ipairs({ "HatchEgg", "RequestHatchEgg", "CompleteHatchEgg" }) do
+									if type(EggState[nombre]) == "function" then
+										local ok = pcall(EggState[nombre], uid)
+										hecho = hecho or ok
 									end
 								end
+								if not hecho then
+									Invocar("RF/EggWorld/AskHatch", uid)
+								end
+								if hecho and Objetivos then Objetivos.Notificar("Eclosionando huevo", true) end
 							end
 						end
 					end
@@ -4417,16 +5146,22 @@ BuildHub = function()
 		local PlaceOn = false
 		task.spawn(function()
 			while ScreenGui.Parent do
-				task.wait(1.2)
-				if PlaceOn and EggCmds then
-					local cargado = HuevoCargado()
+				task.wait(1.5)
+				if PlaceOn then
+					local cargado = Cargado()
 					local char = LocalPlayer.Character
 					local hrp = char and char:FindFirstChild("HumanoidRootPart")
 					if cargado and hrp then
-						local pos = hrp.Position + hrp.CFrame.LookVector * 6
-						local destino = CFrame.new(Vector3.new(pos.X, 70.8, pos.Z))
-						local ok, exito = pcall(EggCmds.RequestPlaceEgg, cargado.Uid, destino)
-						if ok and exito ~= false then
+						local destino = CFrame.new(hrp.Position + hrp.CFrame.LookVector * 6)
+						local hecho = false
+						if EggState and type(EggState.PlantEgg) == "function" then
+							local ok, exito = pcall(EggState.PlantEgg, cargado.Uid, destino)
+							hecho = ok and exito ~= false
+						end
+						if not hecho then
+							hecho = Invocar("RF/EggWorld/AskPlaceEgg", cargado.Uid, destino) ~= nil
+						end
+						if hecho then
 							if Objetivos then Objetivos.Notificar("Huevo plantado en la base", true) end
 							task.wait(1)
 						end
@@ -4438,36 +5173,38 @@ BuildHub = function()
 		-- ---------- conectar con el motor de robo ----------
 		local motor = Objetivos and Objetivos.Robo and Objetivos.Robo()
 		if motor and motor.Configurar then
-			motor.Configurar({
-				leerHuevos = LeerHuevos,
-				agarrar = Agarrar,
-				soltar = Soltar
-			})
+			motor.Configurar({leerHuevos = LeerHuevos, agarrar = Agarrar, soltar = Soltar})
 			pcall(motor.Refrescar)
-			if ErrorCarga and Objetivos then
-				Objetivos.Notificar(ErrorCarga .. ": usá el prompt a mano", false)
+		end
+
+		-- ---------- aviso de diagnóstico ----------
+		if Objetivos and Objetivos.Notificar then
+			if #cargados == 0 then
+				Objetivos.Notificar("No cargó ningún módulo del juego: revisá las rutas", false)
+			else
+				Objetivos.Notificar("Juego: " .. table.concat(cargados, " · "), true)
 			end
 		end
 
 		if AjustesRegistrar then
-			AjustesRegistrar("Auto Hatch", function(on)
-				HatchOn = on and true or false
-			end)
-			AjustesRegistrar("Auto Place", function(on)
-				PlaceOn = on and true or false
-			end)
+			AjustesRegistrar("Auto Hatch", function(on) HatchOn = on and true or false end)
+			AjustesRegistrar("Auto Place", function(on) PlaceOn = on and true or false end)
 		end
 
-		-- API para otros módulos
 		Juego = {
-			EggCmds = EggCmds,
+			EggState = EggState,
 			Assets = Assets,
+			Save = Save,
+			Mutations = Mutations,
+			Networking = Networking,
 			LeerHuevos = LeerHuevos,
 			Agarrar = Agarrar,
 			Soltar = Soltar,
-			Cargado = HuevoCargado,
+			Cargado = Cargado,
 			Formato = FormatoCorto,
-			Error = ErrorCarga
+			Invocar = Invocar,
+			Disparar = Disparar,
+			Cargados = cargados,
 		}
 
 		AddCleanup(function()
@@ -4478,185 +5215,270 @@ BuildHub = function()
 	end
 
 	-- =====================================================
-	-- MÁQUINAS Y CUENTA: Auto Sell / Equip / Fuse / Treadmill / Upgrade / Rejoin
-	-- Claves reales del juego (del volcado del .rbxl):
-	--   "Backpack: GetAutoSellState" / "SetAutoSellState"(mapa de rarezas)
-	--   "Backpack: EquipBest"
-	--   "FuseMachine: InsertMob"(uid) / "StartFuse"() / "CompleteReveal"()
-	--   "Treadmills: RequestEquipStatic"() / "RequestUnequip"() / "RequestSetSlowToggleEnabled"(bool)
-	--   "Plots: RequestBaseUpgrade"  (RemoteEvent, sin argumentos)
+	-- MÁQUINAS Y CUENTA con los remotes REALES del juego
+	-- Red real: ReplicatedStorage.Packages.Networking, remotes "RF/..." y "RE/...".
+	--   RF/Codex/AskRedeemAll            RF/AwayEarnings/AskCollect
+	--   RF/Haul/WearBest                 RF/PetSatchel/AskWearBest
+	--   RE/PetSatchel/WriteFavourite     RE/PetSatchel/SellSelection
+	--   RF/Fusery/LoadPet · BeginFuse · FinishReveal · EjectPet
+	--   RF/Treadmill/AskWearStill · AskDoff · AskTierRaise
+	--   RF/Homestead/AskBaseTierRaise    RF/Trailwear/AskPurchase
+	--   RF/EggWorld/AskPlaceEgg · AskHatch · AskFinishHatch
 	-- =====================================================
 	do
-		local Red = nil
-		local Save = nil
-		local Listo = false
+		local Networking = Juego and Juego.Networking or nil
+		local RedRip = nil
 		pcall(function()
-			Red = require(ReplicatedStorage.Library.Client.Network)
-			Save = require(ReplicatedStorage.Library.Client.Save)
-			Listo = true
+			RedRip = require(ReplicatedStorage.Library.Client.Network)
 		end)
 
-		local AutoSellOn, AutoEquipOn, AutoFuseOn, TreadmillOn, UpgradeOn = false, false, false, false, false
-
-		local function Invoke(clave, ...)
-			if not Red then return nil end
-			local ok, a, b = pcall(Red.Invoke, clave, ...)
-			if not ok then return nil end
-			return a, b
+		local function remoto(nombre)
+			if not Networking then return nil end
+			local r = Networking:FindFirstChild(nombre)
+			if r and (r:IsA("RemoteFunction") or r:IsA("RemoteEvent")) then
+				return r
+			end
+			return nil
 		end
 
-		local function Fire(clave, ...)
-			if not Red then return false end
-			local ok = pcall(Red.Fire, clave, ...)
-			return ok
-		end
-
-		local function EsRarezaBaja(nombre)
-			local n = string.lower(tostring(nombre or ""))
-			if string.find(n, "uncommon", 1, true) then return true end
-			if string.find(n, "common", 1, true) then return true end
-			if string.find(n, "rare", 1, true) and not string.find(n, "legend", 1, true) then return true end
-			return false
-		end
-
-		-- ---------- Auto Sell (por rareza, como el juego) ----------
-		local function AplicarAutoSell(on)
-			if not Red then return false, "sin Network" end
-			local estado = Invoke("Backpack: GetAutoSellState")
-			if type(estado) ~= "table" then return false, "sin estado" end
-			local mapa = {}
-			if on then
-				for clave in pairs(estado) do
-					if EsRarezaBaja(clave) then
-						mapa[clave] = true
-					end
+		-- Llama al remote real (funcione como RemoteFunction o RemoteEvent).
+		local function Llamar(nombre, ...)
+			local r = remoto(nombre)
+			if r then
+				if r:IsA("RemoteFunction") then
+					local ok, a = pcall(r.InvokeServer, r, ...)
+					return ok and a or nil
 				end
-				if next(mapa) == nil then
-					local claves = {}
-					for clave in pairs(estado) do
-						table.insert(claves, tostring(clave))
-					end
-					return false, "rarezas: " .. table.concat(claves, ", ")
+				local ok = pcall(r.FireServer, r, ...)
+				return ok or nil
+			end
+			-- Respaldo: la red del rip moddeado
+			if RedRip then
+				local ok, a = pcall(RedRip.Invoke, nombre, ...)
+				if ok then return a end
+			end
+			return nil
+		end
+
+		-- Prueba varios nombres y devuelve el primero que responda.
+		local function LlamarAlguno(nombres, ...)
+			for _, nombre in ipairs(nombres) do
+				if remoto(nombre) then
+					local resultado = Llamar(nombre, ...)
+					if resultado ~= nil then return resultado, nombre end
 				end
 			end
-			Invoke("Backpack: SetAutoSellState", mapa)
-			return true
+			return nil, nil
 		end
 
+		local function Aviso(texto, bien)
+			if Objetivos and Objetivos.Notificar then
+				Objetivos.Notificar(texto, bien)
+			end
+		end
+
+		-- ---------- Auto Claim ----------
+		local ClaimOn = false
+		task.spawn(function()
+			while ScreenGui.Parent do
+				task.wait(25)
+				if ClaimOn then
+					local _, usado = LlamarAlguno({ "RF/Codex/AskRedeemAll", "RF/Index/AskRedeemAll" })
+					LlamarAlguno({ "RF/AwayEarnings/PendingCheck" })
+					LlamarAlguno({ "RF/AwayEarnings/AskCollect" })
+					if usado then Aviso("Recompensas reclamadas (" .. usado .. ")", true) end
+				end
+			end
+		end)
+
+		-- ---------- Auto Equip ----------
+		local EquipOn = false
+		task.spawn(function()
+			while ScreenGui.Parent do
+				task.wait(6)
+				if EquipOn then
+					LlamarAlguno({ "RF/Haul/WearBest", "RF/PetSatchel/AskWearBest", "RF/Haul/FetchWearBestStatus" })
+				end
+			end
+		end)
+
+		-- ---------- Auto Favorite (protege los raros) ----------
+		local FavoriteOn = false
+		local function Inventario()
+			local save = Juego and Juego.Save
+			if not save or type(save.Get) ~= "function" then return {} end
+			local ok, datos = pcall(save.Get)
+			if ok and type(datos) == "table" then
+				return datos.Inventory or {}, datos
+			end
+			return {}, nil
+		end
+
+		local function RarezaDe(categoria)
+			local assets = Juego and Juego.Assets
+			local cfg = assets and assets.Directory and assets.Directory[categoria]
+			local rareza = cfg and cfg.Rarity
+			return tonumber(rareza and (rareza.RarityNumber or rareza.Rank)) or 0
+		end
+
+		task.spawn(function()
+			while ScreenGui.Parent do
+				task.wait(30)
+				if FavoriteOn then
+					local inventario = Inventario()
+					local marcados = 0
+					for uid, item in pairs(inventario) do
+						local categoria = type(item) == "table" and (item.Category or item.AssetCategory) or nil
+						if categoria and RarezaDe(categoria) >= 5 and (type(item) ~= "table" or item.IsFavorite ~= true) then
+							Llamar("RE/PetSatchel/WriteFavourite", uid, true)
+							marcados = marcados + 1
+							task.wait(0.05)
+						end
+					end
+					if marcados > 0 then Aviso("Favoritos: " .. marcados .. " protegidos", true) end
+				end
+			end
+		end)
+
+		-- ---------- Auto Sell (solo rarezas bajas y sin favorito) ----------
+		local SellOn = false
+		task.spawn(function()
+			while ScreenGui.Parent do
+				task.wait(20)
+				if SellOn then
+					local inventario = Inventario()
+					local seleccion = {}
+					for uid, item in pairs(inventario) do
+						local categoria = type(item) == "table" and (item.Category or item.AssetCategory) or nil
+						local raro = type(item) == "table" and item.IsFavorite == true
+						if categoria and not raro and RarezaDe(categoria) <= 2 then
+							table.insert(seleccion, uid)
+						end
+					end
+					if #seleccion > 0 then
+						Llamar("RE/PetSatchel/SellSelection", seleccion)
+						Aviso("Vendiendo " .. #seleccion .. " pets de rareza baja", true)
+						task.wait(2)
+					end
+				end
+			end
+		end)
+
 		-- ---------- Auto Fuse ----------
+		local FuseOn = false
 		local function Fusionar()
-			if not (Red and Save) then return false, "sin Network/Save" end
-			local datos
-			pcall(function() datos = Save.Get() end)
-			if type(datos) ~= "table" then return false, "sin Save" end
-			local inv = datos.Inventory or {}
+			local inventario = Inventario()
 			local grupos = {}
-			for uid, item in pairs(inv) do
-				local cat = item and (item.Category or item.AssetCategory)
-				if cat then
-					grupos[cat] = grupos[cat] or {}
-					table.insert(grupos[cat], uid)
+			for uid, item in pairs(inventario) do
+				local categoria = type(item) == "table" and (item.Category or item.AssetCategory) or nil
+				if categoria then
+					grupos[categoria] = grupos[categoria] or {}
+					table.insert(grupos[categoria], uid)
 				end
 			end
 			for _, uids in pairs(grupos) do
 				if #uids >= 3 then
 					for i = 1, 3 do
-						Invoke("FuseMachine: InsertMob", uids[i])
-						task.wait(0.25)
+						Llamar("RF/Fusery/LoadPet", uids[i])
+						task.wait(0.3)
 					end
 					task.wait(0.4)
-					local ok, err = Invoke("FuseMachine: StartFuse")
-					if ok then
+					local ok = Llamar("RF/Fusery/BeginFuse")
+					if ok ~= nil then
 						task.wait(6)
-						Invoke("FuseMachine: CompleteReveal")
+						Llamar("RF/Fusery/FinishReveal")
 						return true
 					end
-					return false, tostring(err or "no arrancó")
+					return false, "no arrancó la fusión"
 				end
 			end
 			return false, "no hay 3 pets iguales"
 		end
 
-		-- ---------- Treadmill ----------
-		local function AplicarTreadmill(on)
-			if on then
-				Invoke("Treadmills: RequestEquipStatic")
-				Invoke("Treadmills: RequestSetSlowToggleEnabled", true)
-			else
-				Invoke("Treadmills: RequestSetSlowToggleEnabled", false)
-				Invoke("Treadmills: RequestUnequip")
-			end
-			return true
-		end
-
-		-- ---------- Loops ----------
 		task.spawn(function()
 			while ScreenGui.Parent do
-				task.wait(5)
-				if AutoEquipOn and Red then
-					Invoke("Backpack: EquipBest")
-				end
-			end
-		end)
-
-		task.spawn(function()
-			while ScreenGui.Parent do
-				task.wait(6)
-				if AutoFuseOn then
+				task.wait(8)
+				if FuseOn then
 					local ok, motivo = Fusionar()
-					if not ok and motivo and Objetivos then
-						Objetivos.Notificar("Auto Fuse: " .. motivo, false)
-					elseif ok and Objetivos then
-						Objetivos.Notificar("Fusión completada", true)
+					if ok then
+						Aviso("Fusión completada", true)
+					elseif motivo then
+						Aviso("Auto Fuse: " .. motivo, false)
 					end
 				end
 			end
 		end)
 
+		-- ---------- Auto Treadmill ----------
+		local TreadmillOn = false
+		local function AplicarTreadmill(on)
+			if on then
+				LlamarAlguno({ "RF/Treadmill/AskWearStill", "RF/Treadmill/AskEquipStatic" })
+				LlamarAlguno({ "RF/Treadmill/AskTierRaise" })
+			else
+				Llamar("RF/Treadmill/AskDoff")
+			end
+		end
+
+		-- ---------- Auto Upgrade (base) ----------
+		local UpgradeOn = false
 		task.spawn(function()
 			while ScreenGui.Parent do
 				task.wait(25)
 				if UpgradeOn then
-					Fire("Plots: RequestBaseUpgrade")
+					LlamarAlguno({ "RF/Homestead/AskBaseTierRaise", "RF/Plots/RequestBaseUpgrade" })
+				end
+			end
+		end)
+
+		-- ---------- Auto Buy Trail ----------
+		local TrailOn = false
+		task.spawn(function()
+			while ScreenGui.Parent do
+				task.wait(30)
+				if TrailOn then
+					LlamarAlguno({ "RF/Trailwear/AskPurchase", "RF/Trails/RequestPurchase" })
 				end
 			end
 		end)
 
 		if AjustesRegistrar then
-			AjustesRegistrar("Auto Sell", function(on)
-				AutoSellOn = on and true or false
-				local ok, motivo = AplicarAutoSell(AutoSellOn)
-				if not ok and Objetivos then
-					Objetivos.Notificar("Auto Sell: " .. tostring(motivo), false)
-				end
-			end)
-			AjustesRegistrar("Auto Equip", function(on)
-				AutoEquipOn = on and true or false
-				if AutoEquipOn then Invoke("Backpack: EquipBest") end
-			end)
-			AjustesRegistrar("Auto Fuse", function(on)
-				AutoFuseOn = on and true or false
-			end)
+			AjustesRegistrar("Auto Claim", function(on) ClaimOn = on and true or false end)
+			AjustesRegistrar("Auto Equip", function(on) EquipOn = on and true or false end)
+			AjustesRegistrar("Auto Favorite", function(on) FavoriteOn = on and true or false end)
+			AjustesRegistrar("Auto Sell", function(on) SellOn = on and true or false end)
+			AjustesRegistrar("Auto Fuse", function(on) FuseOn = on and true or false end)
 			AjustesRegistrar("Auto Treadmill", function(on)
 				TreadmillOn = on and true or false
 				AplicarTreadmill(TreadmillOn)
 			end)
-			AjustesRegistrar("Auto Upgrade", function(on)
-				UpgradeOn = on and true or false
-				if UpgradeOn then Fire("Plots: RequestBaseUpgrade") end
-			end)
+			AjustesRegistrar("Auto Upgrade", function(on) UpgradeOn = on and true or false end)
+			AjustesRegistrar("Auto Buy Trail", function(on) TrailOn = on and true or false end)
 			AjustesRegistrar("Auto Rejoin", function()
 				pcall(function()
 					game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, LocalPlayer)
 				end)
-				if Objetivos then Objetivos.Notificar("Rejoin al mismo servidor", true) end
+				Aviso("Rejoin al mismo servidor", true)
 			end)
 		end
 
+		-- Diagnóstico: qué remotes existen de verdad
+		if Objetivos and Objetivos.Notificar and Networking then
+			local encontrados = 0
+			for _, nombre in ipairs({
+				"RF/Codex/AskRedeemAll", "RF/Haul/WearBest", "RF/Fusery/BeginFuse",
+				"RF/Treadmill/AskWearStill", "RF/Homestead/AskBaseTierRaise", "RE/PetSatchel/WriteFavourite",
+			}) do
+				if remoto(nombre) then encontrados = encontrados + 1 end
+			end
+			Objetivos.Notificar("Remotes del juego encontrados: " .. encontrados .. "/6", encontrados > 0)
+		elseif Objetivos and Objetivos.Notificar then
+			Objetivos.Notificar("Sin Packages.Networking: máquinas limitadas", false)
+		end
+
 		AddCleanup(function()
-			AutoSellOn, AutoEquipOn, AutoFuseOn, TreadmillOn, UpgradeOn = false, false, false, false, false
+			ClaimOn, EquipOn, FavoriteOn, SellOn, FuseOn, TreadmillOn, UpgradeOn, TrailOn = false, false, false, false, false, false, false, false
 			pcall(AplicarTreadmill, false)
-			pcall(AplicarAutoSell, false)
 		end)
 	end
 
@@ -4683,7 +5505,7 @@ BuildHub = function()
 						if not ocupado then
 							local elegido = nil
 							if ColaOn then
-								local lista = (Objetivos and Objetivos.Lista and Objetivos.Lista()) or {}
+								local lista = (Objetivos and Objetivos.Visibles and Objetivos.Visibles()) or {}
 								if #lista > 0 then
 									if IndiceCola > #lista then IndiceCola = 1 end
 									elegido = lista[IndiceCola]
@@ -4724,6 +5546,160 @@ BuildHub = function()
 					local nombres = {"income", "rareza", "tamaño"}
 					Objetivos.Notificar("Orden: " .. tostring(nombres[math.floor(valor)] or valor), true)
 				end
+			end)
+		end
+
+		-- ---------- ventana de la cola de huevos ----------
+		local ColaShadow = Instance.new("Frame")
+		ColaShadow.Size = UDim2.new(0, 232, 0, 190)
+		ColaShadow.Position = UDim2.new(1, -242, 0, 200)
+		ColaShadow.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+		ColaShadow.BackgroundTransparency = 0.5
+		ColaShadow.BorderSizePixel = 0
+		ColaShadow.ZIndex = 54
+		ColaShadow.Parent = ScreenGui
+
+		local ColaShadowCorner = Instance.new("UICorner")
+		ColaShadowCorner.CornerRadius = UDim.new(0, 16)
+		ColaShadowCorner.Parent = ColaShadow
+
+		local ColaPanel = Instance.new("Frame")
+		ColaPanel.Size = UDim2.new(0, 222, 0, 180)
+		ColaPanel.Position = UDim2.new(1, -242, 0, 200)
+		ColaPanel.BackgroundColor3 = Color3.fromRGB(9, 11, 17)
+		ColaPanel.BackgroundTransparency = 0.06
+		ColaPanel.BorderSizePixel = 0
+		ColaPanel.Active = true
+		ColaPanel.Draggable = true
+		ColaPanel.ZIndex = 55
+		ColaPanel.Parent = ScreenGui
+
+		local ColaCorner = Instance.new("UICorner")
+		ColaCorner.CornerRadius = UDim.new(0, 14)
+		ColaCorner.Parent = ColaPanel
+
+		local ColaStroke = Instance.new("UIStroke")
+		ColaStroke.Color = Color3.fromRGB(160, 130, 255)
+		ColaStroke.Thickness = 1.4
+		ColaStroke.Transparency = 0.2
+		ColaStroke.Parent = ColaPanel
+
+		local ColaGrad = Instance.new("UIGradient")
+		ColaGrad.Color = ColorSequence.new(Color3.fromRGB(28, 26, 44), Color3.fromRGB(9, 11, 17))
+		ColaGrad.Rotation = 135
+		ColaGrad.Parent = ColaPanel
+
+		local ColaTitulo = Instance.new("TextLabel")
+		ColaTitulo.Size = UDim2.new(1, -24, 0, 18)
+		ColaTitulo.Position = UDim2.new(0, 12, 0, 8)
+		ColaTitulo.BackgroundTransparency = 1
+		ColaTitulo.Text = "Cola de huevos"
+		ColaTitulo.TextColor3 = Color3.fromRGB(190, 165, 255)
+		ColaTitulo.Font = Enum.Font.GothamBold
+		ColaTitulo.TextSize = 12
+		ColaTitulo.TextXAlignment = Enum.TextXAlignment.Left
+		ColaTitulo.ZIndex = 56
+		ColaTitulo.Parent = ColaPanel
+
+		local ColaEstado = Instance.new("TextLabel")
+		ColaEstado.Size = UDim2.new(1, -24, 0, 13)
+		ColaEstado.Position = UDim2.new(0, 12, 0, 24)
+		ColaEstado.BackgroundTransparency = 1
+		ColaEstado.Text = "en orden · sin objetivos"
+		ColaEstado.TextColor3 = Color3.fromRGB(130, 140, 170)
+		ColaEstado.Font = Enum.Font.GothamMedium
+		ColaEstado.TextSize = 9
+		ColaEstado.TextXAlignment = Enum.TextXAlignment.Left
+		ColaEstado.ZIndex = 56
+		ColaEstado.Parent = ColaPanel
+
+		local ColaFilas = {}
+
+		local function filaCola(indice)
+			if ColaFilas[indice] then return ColaFilas[indice] end
+			local marco = Instance.new("Frame")
+			marco.Size = UDim2.new(1, -20, 0, 22)
+			marco.Position = UDim2.new(0, 10, 0, 42 + (indice - 1) * 24)
+			marco.BackgroundColor3 = Color3.fromRGB(17, 20, 30)
+			marco.BackgroundTransparency = 0.25
+			marco.BorderSizePixel = 0
+			marco.ZIndex = 56
+			marco.Parent = ColaPanel
+
+			local c = Instance.new("UICorner")
+			c.CornerRadius = UDim.new(0, 7)
+			c.Parent = marco
+
+			local s = Instance.new("UIStroke")
+			s.Color = Color3.fromRGB(70, 80, 120)
+			s.Transparency = 0.55
+			s.Parent = marco
+
+			local numero = Instance.new("TextLabel")
+			numero.Size = UDim2.new(0, 18, 1, 0)
+			numero.Position = UDim2.new(0, 4, 0, 0)
+			numero.BackgroundTransparency = 1
+			numero.Text = tostring(indice)
+			numero.TextColor3 = Color3.fromRGB(150, 160, 200)
+			numero.Font = Enum.Font.GothamBold
+			numero.TextSize = 9
+			numero.ZIndex = 57
+			numero.Parent = marco
+
+			local nombre = Instance.new("TextLabel")
+			nombre.Size = UDim2.new(1, -100, 1, 0)
+			nombre.Position = UDim2.new(0, 24, 0, 0)
+			nombre.BackgroundTransparency = 1
+			nombre.Text = ""
+			nombre.TextColor3 = Color3.fromRGB(235, 240, 255)
+			nombre.Font = Enum.Font.GothamBold
+			nombre.TextSize = 10
+			nombre.TextXAlignment = Enum.TextXAlignment.Left
+			nombre.TextTruncate = Enum.TextTruncate.AtEnd
+			nombre.ZIndex = 57
+			nombre.Parent = marco
+
+			local valor = Instance.new("TextLabel")
+			valor.Size = UDim2.new(0, 70, 1, 0)
+			valor.Position = UDim2.new(1, -74, 0, 0)
+			valor.BackgroundTransparency = 1
+			valor.Text = ""
+			valor.TextColor3 = Color3.fromRGB(150, 210, 170)
+			valor.Font = Enum.Font.GothamBold
+			valor.TextSize = 9
+			valor.TextXAlignment = Enum.TextXAlignment.Right
+			valor.ZIndex = 57
+			valor.Parent = marco
+			return {marco = marco, nombre = nombre, valor = valor, stroke = s}
+		end
+
+		task.spawn(function()
+			while ScreenGui.Parent do
+				task.wait(1)
+				if ColaPanel.Visible then
+					local lista = (Objetivos and Objetivos.Visibles and Objetivos.Visibles()) or {}
+					ColaEstado.Text = "en orden · " .. tostring(#lista) .. " objetivos · próximo #" .. tostring(IndiceCola)
+					local cuantos = math.min(#lista, 6)
+					for i = 1, cuantos do
+						local datos = lista[i]
+						local fila = filaCola(i)
+						fila.marco.Visible = true
+						fila.nombre.Text = tostring(datos.nombre or "?") .. (datos.area and ("  ·  " .. tostring(datos.area)) or "")
+						fila.valor.Text = tostring(datos.incomeTexto or "")
+						local actual = (ColaOn and i == IndiceCola)
+						fila.marco.BackgroundColor3 = actual and Color3.fromRGB(40, 34, 66) or Color3.fromRGB(17, 20, 30)
+						fila.stroke.Color = actual and Color3.fromRGB(160, 130, 255) or Color3.fromRGB(70, 80, 120)
+					end
+					for i = cuantos + 1, #ColaFilas do
+						ColaFilas[i].marco.Visible = false
+					end
+				end
+			end
+		end)
+
+		if Gestor then
+			Gestor.Registrar("Cola", {ColaShadow, ColaPanel}, false, function()
+				return ColaOn
 			end)
 		end
 
@@ -4808,6 +5784,8 @@ BuildHub = function()
 		-- ---------- ESP ----------
 		local EspOn = false
 		local EspHuevos, EspGuardias, EspJugadores = true, true, true
+		local ChamsOn = false
+		local ChamsCreados = {}
 		local EspCapa = Instance.new("Frame")
 		EspCapa.Size = UDim2.new(1, 0, 1, 0)
 		EspCapa.BackgroundTransparency = 1
@@ -4895,33 +5873,64 @@ BuildHub = function()
 			if not cam then return end
 
 			local lista = {}
+			local miHRP = HRP()
+			local posicion = miHRP and miHRP.Position
+
 			for _, objetivo in ipairs((Objetivos and Objetivos.Lista and Objetivos.Lista()) or {}) do
 				if EspHuevos and objetivo.posicion then
 					table.insert(lista, {
 						pos = objetivo.posicion,
 						texto = tostring(objetivo.nombre) .. "  " .. tostring(objetivo.incomeTexto or ""),
+						distancia = posicion and (objetivo.posicion - posicion).Magnitude or nil,
 						color = Color3.fromRGB(90, 230, 140),
 					})
 				end
 			end
+
 			for _, guardia in ipairs(GuardiasEsp) do
 				local pos = PosicionDe(guardia)
 				if EspGuardias and pos then
+					local estadoGuardia = tostring(guardia:GetAttribute("GuardState") or "")
+					local colorGuardia = Color3.fromRGB(255, 90, 90)
+					if estadoGuardia == "Sleeping" then
+						colorGuardia = Color3.fromRGB(255, 180, 90)
+					elseif estadoGuardia == "Chasing" then
+						colorGuardia = Color3.fromRGB(255, 60, 60)
+					end
 					table.insert(lista, {
 						pos = pos,
-						texto = "GUARDIA " .. tostring(guardia:GetAttribute("GuardState") or ""),
-						color = Color3.fromRGB(255, 90, 90),
+						texto = "GUARDIA " .. estadoGuardia,
+						distancia = posicion and (pos - posicion).Magnitude or nil,
+						color = colorGuardia,
 					})
 				end
 			end
+
 			for _, jugador in ipairs(Players:GetPlayers()) do
 				if jugador ~= LocalPlayer and jugador.Character then
 					local hrp = jugador.Character:FindFirstChild("HumanoidRootPart")
-					if EspJugadores and hrp then
+					local hum = jugador.Character:FindFirstChildOfClass("Humanoid")
+					if EspJugadores and hrp and hum and hum.Health > 0 then
+						local posicionJugador = hrp.Position
+						local distancia = posicion and (posicionJugador - posicion).Magnitude or nil
+						local dentroX = posicionJugador.X > 365.3 and posicionJugador.X < 551.4
+						local dentroZ = posicionJugador.Z > -581.4 and posicionJugador.Z < -146.9
+						local enZonaSegura = dentroX and dentroZ
+						local color = Color3.fromRGB(120, 190, 255)
+						local etiqueta = jugador.Name
+						if enZonaSegura then
+							color = Color3.fromRGB(120, 235, 190)
+							etiqueta = etiqueta .. " (segura)"
+						end
+						if not enZonaSegura and distancia and distancia <= 30 then
+							color = Color3.fromRGB(255, 90, 90)
+							etiqueta = etiqueta .. " (cerca)"
+						end
 						table.insert(lista, {
-							pos = hrp.Position,
-							texto = jugador.Name,
-							color = Color3.fromRGB(120, 190, 255),
+							pos = posicionJugador,
+							texto = etiqueta,
+							distancia = distancia,
+							color = color,
 						})
 					end
 				end
@@ -4936,7 +5945,7 @@ BuildHub = function()
 					punto.marco.Visible = true
 					punto.marco.BackgroundColor3 = item.color
 					punto.marco.Position = UDim2.fromOffset(math.floor(posicion.X) - 3, math.floor(posicion.Y) - 3)
-					punto.texto.Text = item.texto
+					punto.texto.Text = item.texto .. (item.distancia and ("  " .. tostring(math.floor(item.distancia)) .. " st") or "")
 					punto.texto.TextColor3 = item.color
 					punto.texto.Position = UDim2.fromOffset(8, -4)
 				end
@@ -4952,28 +5961,36 @@ BuildHub = function()
 
 		local function AplicarVuelo(on)
 			local hrp = HRP()
+			local hum = hrp and hrp.Parent and hrp.Parent:FindFirstChildOfClass("Humanoid")
 			if on then
-				if not hrp then return end
-				if not VueloBV or not VueloBV.Parent then
-					VueloBV = Instance.new("BodyVelocity")
-					VueloBV.MaxForce = Vector3.new(1e5, 1e5, 1e5)
-					VueloBV.Velocity = Vector3.zero
-					VueloBV.Parent = hrp
+				if hum then
+					pcall(function()
+						hum.PlatformStand = true
+						hum:ChangeState(Enum.HumanoidStateType.Freefall)
+					end)
 				end
-				local hum = hrp.Parent and hrp.Parent:FindFirstChildOfClass("Humanoid")
-				if hum then pcall(function() hum.PlatformStand = true end) end
 			else
-				if VueloBV then pcall(function() VueloBV:Destroy() end) VueloBV = nil end
-				local hum = hrp and hrp.Parent and hrp.Parent:FindFirstChildOfClass("Humanoid")
+				if hrp then
+					pcall(function()
+						hrp.AssemblyLinearVelocity = Vector3.zero
+						hrp.AssemblyAngularVelocity = Vector3.zero
+					end)
+				end
 				if hum then pcall(function() hum.PlatformStand = false end) end
 			end
 		end
 
+		-- Vuelo: se escribe la velocidad del HRP en cada frame (WASD + espacio/Ctrl).
 		RunService.Heartbeat:Connect(function()
 			if not VueloOn then return end
-			if not VueloBV or not VueloBV.Parent then
-				AplicarVuelo(true)
-				return
+			local hrp = HRP()
+			if not hrp then return end
+			local hum = hrp.Parent and hrp.Parent:FindFirstChildOfClass("Humanoid")
+			if hum and not hum.PlatformStand then
+				pcall(function()
+					hum.PlatformStand = true
+					hum:ChangeState(Enum.HumanoidStateType.Freefall)
+				end)
 			end
 			local cam = Workspace.CurrentCamera
 			if not cam then return end
@@ -4984,25 +6001,257 @@ BuildHub = function()
 			if UserInputService:IsKeyDown(Enum.KeyCode.D) then dir = dir + cam.CFrame.RightVector end
 			if UserInputService:IsKeyDown(Enum.KeyCode.Space) then dir = dir + Vector3.yAxis end
 			if UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then dir = dir - Vector3.yAxis end
-			if dir.Magnitude > 0 then
-				VueloBV.Velocity = dir.Unit * 130
-			else
-				VueloBV.Velocity = Vector3.zero
-			end
+			if UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) then dir = dir - Vector3.yAxis end
+			if dir.Magnitude > 0 then dir = dir.Unit * 130 end
+			pcall(function()
+				hrp.AssemblyLinearVelocity = dir
+				hrp.AssemblyAngularVelocity = Vector3.zero
+			end)
 		end)
 
-		-- ---------- Watchdog de velocidad (SpeedService la reescribe) ----------
-		local VelocidadObjetivo = 16
+		-- ---------- chams: resaltado de jugadores a través de paredes ----------
+		local COLORES_CHAM = {
+			segura = Color3.fromRGB(120, 235, 190),
+			cerca = Color3.fromRGB(255, 80, 80),
+			normal = Color3.fromRGB(120, 190, 255),
+		}
+
+		local function chamDe(personaje)
+			local existente = personaje:FindFirstChild("DreyvidCham")
+			if existente and existente:IsA("Highlight") then return existente end
+			local resaltado = Instance.new("Highlight")
+			resaltado.Name = "DreyvidCham"
+			resaltado.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+			resaltado.FillTransparency = 0.55
+			resaltado.OutlineTransparency = 0
+			resaltado.Parent = personaje
+			ChamsCreados[personaje] = resaltado
+			return resaltado
+		end
+
 		task.spawn(function()
 			while ScreenGui.Parent do
 				task.wait(1)
-				local hrp = HRP()
-				local hum = hrp and hrp.Parent and hrp.Parent:FindFirstChildOfClass("Humanoid")
-				if hum and VelocidadObjetivo > 16 and math.abs(hum.WalkSpeed - VelocidadObjetivo) > 1 then
-					pcall(function() hum.WalkSpeed = VelocidadObjetivo end)
+				if ChamsOn then
+					local yo = HRP()
+					local miPos = yo and yo.Position
+					local vivos = {}
+					for _, jugador in ipairs(Players:GetPlayers()) do
+						if jugador ~= LocalPlayer and jugador.Character then
+							local hrp = jugador.Character:FindFirstChild("HumanoidRootPart")
+							local hum = jugador.Character:FindFirstChildOfClass("Humanoid")
+							if hrp and hum and hum.Health > 0 then
+								local color = COLORES_CHAM.normal
+								local pos = hrp.Position
+								local enZona = pos.X > 365.3 and pos.X < 551.4 and pos.Z > -581.4 and pos.Z < -146.9
+								local distancia = miPos and (pos - miPos).Magnitude or nil
+								if enZona then
+									color = COLORES_CHAM.segura
+								elseif distancia and distancia <= 30 then
+									color = COLORES_CHAM.cerca
+								end
+								local resaltado = chamDe(jugador.Character)
+								resaltado.FillColor = color
+								resaltado.OutlineColor = color:Lerp(Color3.new(1, 1, 1), 0.5)
+								vivos[jugador.Character] = true
+							end
+						end
+					end
+					for personaje, resaltado in pairs(ChamsCreados) do
+						if not vivos[personaje] or not personaje.Parent then
+							pcall(function() resaltado:Destroy() end)
+							ChamsCreados[personaje] = nil
+						end
+					end
+				elseif next(ChamsCreados) ~= nil then
+					for personaje, resaltado in pairs(ChamsCreados) do
+						pcall(function() resaltado:Destroy() end)
+						ChamsCreados[personaje] = nil
+					end
 				end
 			end
 		end)
+
+		-- ---------- VELOCIDAD REAL (por velocidad, no por WalkSpeed) ----------
+		-- SpeedService es el dueño del Humanoid.WalkSpeed y lo reescribe, así que
+		-- acá movemos el HRP escribiendo su velocidad en cada frame. Así se puede
+		-- llegar a 1000 studs/s y no hay forma de que el juego lo revierta.
+		local VelocidadObjetivo = 350
+		local VelocidadActiva = false
+
+		RunService.Heartbeat:Connect(function()
+			if not VelocidadActiva then return end
+			local hrp = HRP()
+			local hum = hrp and hrp.Parent and hrp.Parent:FindFirstChildOfClass("Humanoid")
+			if not hrp or not hum or hum.Health <= 0 then return end
+			local direccion = hum.MoveDirection
+			if direccion.Magnitude > 0 then
+				local actual = hrp.AssemblyLinearVelocity
+				pcall(function()
+					hrp.AssemblyLinearVelocity = Vector3.new(
+						direccion.X * VelocidadObjetivo,
+						actual.Y,
+						direccion.Z * VelocidadObjetivo
+					)
+				end)
+			end
+		end)
+
+		-- ---------- ventana propia de la velocidad ----------
+		local VelShadow = Instance.new("Frame")
+		VelShadow.Size = UDim2.new(0, 216, 0, 124)
+		VelShadow.Position = UDim2.new(1, -226, 1, -216)
+		VelShadow.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+		VelShadow.BackgroundTransparency = 0.5
+		VelShadow.BorderSizePixel = 0
+		VelShadow.ZIndex = 54
+		VelShadow.Parent = ScreenGui
+
+		local VelShadowCorner = Instance.new("UICorner")
+		VelShadowCorner.CornerRadius = UDim.new(0, 16)
+		VelShadowCorner.Parent = VelShadow
+
+		local VelPanel = Instance.new("Frame")
+		VelPanel.Size = UDim2.new(0, 206, 0, 114)
+		VelPanel.Position = UDim2.new(1, -226, 1, -216)
+		VelPanel.BackgroundColor3 = Color3.fromRGB(9, 11, 17)
+		VelPanel.BackgroundTransparency = 0.06
+		VelPanel.BorderSizePixel = 0
+		VelPanel.Active = true
+		VelPanel.Draggable = true
+		VelPanel.ZIndex = 55
+		VelPanel.Parent = ScreenGui
+
+		local VelCorner = Instance.new("UICorner")
+		VelCorner.CornerRadius = UDim.new(0, 14)
+		VelCorner.Parent = VelPanel
+
+		local VelStroke = Instance.new("UIStroke")
+		VelStroke.Color = Color3.fromRGB(110, 160, 240)
+		VelStroke.Thickness = 1.4
+		VelStroke.Transparency = 0.2
+		VelStroke.Parent = VelPanel
+
+		local VelGrad = Instance.new("UIGradient")
+		VelGrad.Color = ColorSequence.new(Color3.fromRGB(24, 30, 44), Color3.fromRGB(9, 11, 17))
+		VelGrad.Rotation = 135
+		VelGrad.Parent = VelPanel
+
+		local VelTitulo = Instance.new("TextLabel")
+		VelTitulo.Size = UDim2.new(1, -70, 0, 18)
+		VelTitulo.Position = UDim2.new(0, 12, 0, 8)
+		VelTitulo.BackgroundTransparency = 1
+		VelTitulo.Text = "Speed"
+		VelTitulo.TextColor3 = Color3.fromRGB(150, 205, 255)
+		VelTitulo.Font = Enum.Font.GothamBold
+		VelTitulo.TextSize = 13
+		VelTitulo.TextXAlignment = Enum.TextXAlignment.Left
+		VelTitulo.ZIndex = 56
+		VelTitulo.Parent = VelPanel
+
+		local VelSub = Instance.new("TextLabel")
+		VelSub.Size = UDim2.new(0, 130, 0, 12)
+		VelSub.Position = UDim2.new(0, 12, 0, 24)
+		VelSub.BackgroundTransparency = 1
+		VelSub.Text = "VELOCIDAD REAL (HASTA 1000)"
+		VelSub.TextColor3 = Color3.fromRGB(130, 145, 170)
+		VelSub.Font = Enum.Font.GothamMedium
+		VelSub.TextSize = 8
+		VelSub.TextXAlignment = Enum.TextXAlignment.Left
+		VelSub.ZIndex = 56
+		VelSub.Parent = VelPanel
+
+		local VelDot = Instance.new("Frame")
+		VelDot.Size = UDim2.new(0, 7, 0, 7)
+		VelDot.Position = UDim2.new(0, 146, 0, 26)
+		VelDot.BackgroundColor3 = Color3.fromRGB(90, 220, 150)
+		VelDot.BorderSizePixel = 0
+		VelDot.ZIndex = 56
+		VelDot.Parent = VelPanel
+
+		local VelDotCorner = Instance.new("UICorner")
+		VelDotCorner.CornerRadius = UDim.new(1, 0)
+		VelDotCorner.Parent = VelDot
+
+		local VelBoton = Instance.new("TextButton")
+		VelBoton.Size = UDim2.new(1, -24, 0, 24)
+		VelBoton.Position = UDim2.new(0, 12, 0, 42)
+		VelBoton.BackgroundColor3 = Color3.fromRGB(26, 46, 74)
+		VelBoton.Text = "ON"
+		VelBoton.TextColor3 = Color3.fromRGB(150, 205, 255)
+		VelBoton.Font = Enum.Font.GothamBold
+		VelBoton.TextSize = 11
+		VelBoton.AutoButtonColor = false
+		VelBoton.ZIndex = 56
+		VelBoton.Parent = VelPanel
+
+		local VelBotonCorner = Instance.new("UICorner")
+		VelBotonCorner.CornerRadius = UDim.new(1, 0)
+		VelBotonCorner.Parent = VelBoton
+
+		local VelBotonStroke = Instance.new("UIStroke")
+		VelBotonStroke.Color = Color3.fromRGB(70, 130, 210)
+		VelBotonStroke.Transparency = 0.3
+		VelBotonStroke.Parent = VelBoton
+
+		local function pintarVel()
+			VelBoton.Text = VelocidadActiva and ("ON  ·  " .. tostring(VelocidadObjetivo) .. " st/s") or "OFF"
+			VelBoton.BackgroundColor3 = VelocidadActiva and Color3.fromRGB(26, 46, 74) or Color3.fromRGB(44, 30, 38)
+			VelBoton.TextColor3 = VelocidadActiva and Color3.fromRGB(150, 205, 255) or Color3.fromRGB(200, 140, 140)
+			VelBotonStroke.Color = VelocidadActiva and Color3.fromRGB(70, 130, 210) or Color3.fromRGB(120, 60, 70)
+			VelDot.BackgroundColor3 = VelocidadActiva and Color3.fromRGB(90, 220, 150) or Color3.fromRGB(220, 70, 80)
+		end
+
+		VelBoton.MouseButton1Click:Connect(function()
+			VelocidadActiva = not VelocidadActiva
+			pintarVel()
+			if Gestor then Gestor.Refrescar() end
+		end)
+
+		local etiquetaVel = Instance.new("TextLabel")
+		etiquetaVel.Size = UDim2.new(0, 66, 0, 22)
+		etiquetaVel.Position = UDim2.new(0, 78, 0, 76)
+		etiquetaVel.BackgroundColor3 = Color3.fromRGB(20, 26, 38)
+		etiquetaVel.Text = tostring(VelocidadObjetivo)
+		etiquetaVel.TextColor3 = Color3.fromRGB(200, 225, 255)
+		etiquetaVel.Font = Enum.Font.GothamBold
+		etiquetaVel.TextSize = 11
+		etiquetaVel.ZIndex = 56
+		etiquetaVel.Parent = VelPanel
+
+		local etiquetaVelCorner = Instance.new("UICorner")
+		etiquetaVelCorner.CornerRadius = UDim.new(1, 0)
+		etiquetaVelCorner.Parent = etiquetaVel
+
+		local function botonVel(texto, x, signo)
+			local b = Instance.new("TextButton")
+			b.Size = UDim2.new(0, 22, 0, 22)
+			b.Position = UDim2.new(0, x, 0, 76)
+			b.BackgroundColor3 = Color3.fromRGB(26, 34, 52)
+			b.Text = texto
+			b.TextColor3 = Color3.fromRGB(150, 205, 255)
+			b.Font = Enum.Font.GothamBold
+			b.TextSize = 13
+			b.AutoButtonColor = false
+			b.ZIndex = 56
+			b.Parent = VelPanel
+			local c = Instance.new("UICorner")
+			c.CornerRadius = UDim.new(1, 0)
+			c.Parent = b
+			b.MouseButton1Click:Connect(function()
+				VelocidadObjetivo = math.clamp(VelocidadObjetivo + signo * 50, 16, 1000)
+				etiquetaVel.Text = tostring(VelocidadObjetivo)
+				pintarVel()
+			end)
+		end
+
+		botonVel("-", 50, -1)
+		botonVel("+", 150, 1)
+		pintarVel()
+
+		if Gestor then
+			Gestor.Registrar("Velocidad", {VelShadow, VelPanel}, false, function() return VelocidadActiva end)
+		end
 
 		-- ---------- registro en ajustes ----------
 		if AjustesRegistrar then
@@ -5011,6 +6260,9 @@ BuildHub = function()
 			end)
 			AjustesRegistrar("Auto Favorite", function(on)
 				FavoriteOn = on and true or false
+			end)
+			AjustesRegistrar("Chams", function(on)
+				ChamsOn = on and true or false
 			end)
 			AjustesRegistrar("ESP", function(on)
 				EspOn = on and true or false
@@ -5026,10 +6278,10 @@ BuildHub = function()
 				AplicarVuelo(VueloOn)
 			end)
 			AjustesRegistrar("Speed Boost", function(valor)
-				VelocidadObjetivo = tonumber(valor) or 16
-				local hrp = HRP()
-				local hum = hrp and hrp.Parent and hrp.Parent:FindFirstChildOfClass("Humanoid")
-				if hum then pcall(function() hum.WalkSpeed = VelocidadObjetivo end) end
+				VelocidadObjetivo = math.clamp(tonumber(valor) or 16, 16, 1000)
+				VelocidadActiva = VelocidadObjetivo > 16
+				etiquetaVel.Text = tostring(VelocidadObjetivo)
+				pintarVel()
 			end)
 		end
 
@@ -5109,6 +6361,7 @@ BuildHub = function()
 		pillEsp(12, 32, "Huevos", EspHuevos, function(v) EspHuevos = v end)
 		pillEsp(104, 32, "Guardias", EspGuardias, function(v) EspGuardias = v end)
 		pillEsp(12, 58, "Jugadores", EspJugadores, function(v) EspJugadores = v end)
+		pillEsp(104, 58, "Chams", ChamsOn, function(v) ChamsOn = v end)
 
 		local veNota = Instance.new("TextLabel")
 		veNota.Size = UDim2.new(1, -24, 0, 26)
@@ -5416,8 +6669,8 @@ BuildHub = function()
 			end)
 			AjustesRegistrar("Predictor", function(on)
 				PredictorOn = on and true or false
-				if PredictorOn then
-					Objetivos and Objetivos.Notificar("Predictor: proyecta el mejor huevo cada 20 s", true)
+				if PredictorOn and Objetivos then
+					Objetivos.Notificar("Predictor: proyecta el mejor huevo cada 20 s", true)
 				end
 			end)
 		end
@@ -5448,6 +6701,45 @@ BuildHub = function()
 			end
 
 			if AjustesRegistrar then
+			if AjustesRegistrar then
+				local estadoRareza, estadoValor = 0, 0
+				local function rehacerFiltro()
+					if not Objetivos or not Objetivos.SetFiltro then return end
+					if estadoRareza <= 0 and estadoValor <= 0 then
+						Objetivos.SetFiltro("calidad", nil)
+						return
+					end
+					Objetivos.SetFiltro("calidad", function(item)
+						if estadoRareza > 0 and (item.rarityRank or 0) < estadoRareza then
+							return false
+						end
+						if estadoValor > 0 and (item.income or 0) < estadoValor * 1e6 then
+							return false
+						end
+						return true
+					end)
+				end
+				AjustesRegistrar("Rareza mínima", function(valor)
+					estadoRareza = tonumber(valor) or 0
+					rehacerFiltro()
+				end)
+				AjustesRegistrar("Valor mínimo", function(valor)
+					estadoValor = tonumber(valor) or 0
+					rehacerFiltro()
+				end)
+				AjustesRegistrar("Prioridad de robo", function(valor)
+					if Objetivos and Objetivos.SetPrioridad then Objetivos.SetPrioridad(valor) end
+				end)
+				AjustesRegistrar("Velocidad de ida", function(valor)
+					local motor = Objetivos and Objetivos.Robo and Objetivos.Robo()
+					if motor and motor.SetVelocidades then motor.SetVelocidades(valor, nil) end
+				end)
+				AjustesRegistrar("Velocidad de vuelta", function(valor)
+					local motor = Objetivos and Objetivos.Robo and Objetivos.Robo()
+					if motor and motor.SetVelocidades then motor.SetVelocidades(nil, valor) end
+				end)
+			end
+
 				AjustesRegistrar("Anti Hit", function(on)
 					AntiHitAplicar(on)
 					Gestor.Panel("Anti-Hit", on)
@@ -5459,6 +6751,526 @@ BuildHub = function()
 
 			Gestor.MostrarTodo()
 		end
+	end
+
+	-- =====================================================
+	-- ÁREAS OBJETIVO (selector de biomas)
+	-- =====================================================
+	do
+			-- ---------- ventana de áreas objetivo ----------
+			local AREAS = {
+				"Forest", "Desert", "Snow", "Lake", "Jungle", "Volcano",
+				"Prehistoric", "Cosmic", "Abyss Ocean", "Cherry Blossom", "Light Dark", "Titan Temple",
+			}
+			local seleccionadas = {}
+			for _, nombre in ipairs(AREAS) do
+				seleccionadas[nombre] = true
+			end
+
+			local function aplicarAreas()
+				if not (Objetivos and Objetivos.SetFiltro) then return end
+				local cuenta = 0
+				for _, nombre in ipairs(AREAS) do
+					if seleccionadas[nombre] then cuenta = cuenta + 1 end
+				end
+				if cuenta == 0 or cuenta == #AREAS then
+					Objetivos.SetFiltro("area", nil)
+				else
+					Objetivos.SetFiltro("area", function(item)
+						return seleccionadas[item.area] == true
+					end)
+				end
+			end
+
+			local AreasShadow = Instance.new("Frame")
+			AreasShadow.Size = UDim2.new(0, 226, 0, 232)
+			AreasShadow.Position = UDim2.new(0, 10, 0, 540)
+			AreasShadow.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+			AreasShadow.BackgroundTransparency = 0.5
+			AreasShadow.BorderSizePixel = 0
+			AreasShadow.ZIndex = 54
+			AreasShadow.Parent = ScreenGui
+
+			local AreasShadowCorner = Instance.new("UICorner")
+			AreasShadowCorner.CornerRadius = UDim.new(0, 16)
+			AreasShadowCorner.Parent = AreasShadow
+
+			local AreasPanel = Instance.new("Frame")
+			AreasPanel.Size = UDim2.new(0, 216, 0, 222)
+			AreasPanel.Position = UDim2.new(0, 10, 0, 540)
+			AreasPanel.BackgroundColor3 = Color3.fromRGB(9, 11, 17)
+			AreasPanel.BackgroundTransparency = 0.06
+			AreasPanel.BorderSizePixel = 0
+			AreasPanel.Active = true
+			AreasPanel.Draggable = true
+			AreasPanel.ZIndex = 55
+			AreasPanel.Parent = ScreenGui
+
+			local AreasCorner = Instance.new("UICorner")
+			AreasCorner.CornerRadius = UDim.new(0, 14)
+			AreasCorner.Parent = AreasPanel
+
+			local AreasStroke = Instance.new("UIStroke")
+			AreasStroke.Color = Color3.fromRGB(140, 190, 255)
+			AreasStroke.Thickness = 1.4
+			AreasStroke.Transparency = 0.2
+			AreasStroke.Parent = AreasPanel
+
+			local AreasGrad = Instance.new("UIGradient")
+			AreasGrad.Color = ColorSequence.new(Color3.fromRGB(24, 30, 44), Color3.fromRGB(9, 11, 17))
+			AreasGrad.Rotation = 135
+			AreasGrad.Parent = AreasPanel
+
+			local AreasTitulo = Instance.new("TextLabel")
+			AreasTitulo.Size = UDim2.new(1, -24, 0, 18)
+			AreasTitulo.Position = UDim2.new(0, 12, 0, 8)
+			AreasTitulo.BackgroundTransparency = 1
+			AreasTitulo.Text = "Áreas objetivo"
+			AreasTitulo.TextColor3 = Color3.fromRGB(150, 205, 255)
+			AreasTitulo.Font = Enum.Font.GothamBold
+			AreasTitulo.TextSize = 12
+			AreasTitulo.TextXAlignment = Enum.TextXAlignment.Left
+			AreasTitulo.ZIndex = 56
+			AreasTitulo.Parent = AreasPanel
+
+			local AreasContador = Instance.new("TextLabel")
+			AreasContador.Size = UDim2.new(1, -24, 0, 12)
+			AreasContador.Position = UDim2.new(0, 12, 0, 24)
+			AreasContador.BackgroundTransparency = 1
+			AreasContador.Text = "roba en 12 de 12"
+			AreasContador.TextColor3 = Color3.fromRGB(130, 145, 170)
+			AreasContador.Font = Enum.Font.GothamMedium
+			AreasContador.TextSize = 9
+			AreasContador.TextXAlignment = Enum.TextXAlignment.Left
+			AreasContador.ZIndex = 56
+			AreasContador.Parent = AreasPanel
+
+			local botonesAreas = {}
+
+			local function pintarAreas()
+				local cuenta = 0
+				for _, nombre in ipairs(AREAS) do
+					local datos = botonesAreas[nombre]
+					if datos then
+						local activa = seleccionadas[nombre] == true
+						if activa then cuenta = cuenta + 1 end
+						datos.boton.BackgroundColor3 = activa and Color3.fromRGB(26, 46, 74) or Color3.fromRGB(30, 26, 36)
+						datos.boton.TextColor3 = activa and Color3.fromRGB(155, 210, 255) or Color3.fromRGB(150, 130, 150)
+						datos.stroke.Color = activa and Color3.fromRGB(70, 140, 220) or Color3.fromRGB(110, 70, 90)
+					end
+				end
+				AreasContador.Text = "roba en " .. cuenta .. " de " .. #AREAS .. " áreas"
+			end
+
+			for i, nombre in ipairs(AREAS) do
+				local columna = (i - 1) % 2
+				local fila = math.floor((i - 1) / 2)
+				local b = Instance.new("TextButton")
+				b.Size = UDim2.new(0, 94, 0, 20)
+				b.Position = UDim2.new(0, 12 + columna * 98, 0, 42 + fila * 24)
+				b.BackgroundColor3 = Color3.fromRGB(26, 46, 74)
+				b.Text = nombre
+				b.TextColor3 = Color3.fromRGB(155, 210, 255)
+				b.Font = Enum.Font.GothamBold
+				b.TextSize = 9
+				b.AutoButtonColor = false
+				b.TextTruncate = Enum.TextTruncate.AtEnd
+				b.ZIndex = 56
+				b.Parent = AreasPanel
+
+				local c = Instance.new("UICorner")
+				c.CornerRadius = UDim.new(1, 0)
+				c.Parent = b
+
+				local s = Instance.new("UIStroke")
+				s.Color = Color3.fromRGB(70, 140, 220)
+				s.Transparency = 0.3
+				s.Parent = b
+
+				b.MouseButton1Click:Connect(function()
+					seleccionadas[nombre] = not seleccionadas[nombre]
+					pintarAreas()
+					aplicarAreas()
+				end)
+
+				botonesAreas[nombre] = {boton = b, stroke = s}
+			end
+
+			local TodasBtn = Instance.new("TextButton")
+			TodasBtn.Size = UDim2.new(0, 94, 0, 20)
+			TodasBtn.Position = UDim2.new(0, 12, 1, -30)
+			TodasBtn.BackgroundColor3 = Color3.fromRGB(28, 34, 48)
+			TodasBtn.Text = "TODAS"
+			TodasBtn.TextColor3 = Color3.fromRGB(150, 205, 255)
+			TodasBtn.Font = Enum.Font.GothamBold
+			TodasBtn.TextSize = 9
+			TodasBtn.AutoButtonColor = false
+			TodasBtn.ZIndex = 56
+			TodasBtn.Parent = AreasPanel
+
+			local TodasCorner = Instance.new("UICorner")
+			TodasCorner.CornerRadius = UDim.new(1, 0)
+			TodasCorner.Parent = TodasBtn
+
+			local NingunaBtn = Instance.new("TextButton")
+			NingunaBtn.Size = UDim2.new(0, 94, 0, 20)
+			NingunaBtn.Position = UDim2.new(0, 110, 1, -30)
+			NingunaBtn.BackgroundColor3 = Color3.fromRGB(28, 34, 48)
+			NingunaBtn.Text = "NINGUNA"
+			NingunaBtn.TextColor3 = Color3.fromRGB(200, 150, 150)
+			NingunaBtn.Font = Enum.Font.GothamBold
+			NingunaBtn.TextSize = 9
+			NingunaBtn.AutoButtonColor = false
+			NingunaBtn.ZIndex = 56
+			NingunaBtn.Parent = AreasPanel
+
+			local NingunaCorner = Instance.new("UICorner")
+			NingunaCorner.CornerRadius = UDim.new(1, 0)
+			NingunaCorner.Parent = NingunaBtn
+
+			TodasBtn.MouseButton1Click:Connect(function()
+				for _, nombre in ipairs(AREAS) do
+					seleccionadas[nombre] = true
+				end
+				pintarAreas()
+				aplicarAreas()
+			end)
+
+			NingunaBtn.MouseButton1Click:Connect(function()
+				for _, nombre in ipairs(AREAS) do
+					seleccionadas[nombre] = false
+				end
+				pintarAreas()
+				aplicarAreas()
+			end)
+
+			pintarAreas()
+
+			if Gestor then
+				Gestor.Registrar("Áreas", {AreasShadow, AreasPanel}, false)
+			end
+
+			if AjustesRegistrar then
+				AjustesRegistrar("Áreas objetivo", function(on)
+					if Gestor then Gestor.Panel("Áreas", on) end
+				end)
+			end
+	end
+
+	-- =====================================================
+	-- PRIORIDAD DE RIFT + HUEVOS ESPECÍFICOS
+	-- Rift: pregunta la receta al juego (RF/Rift/AskState), ve qué te falta y
+	-- pone esos huevos primeros en la lista, como el "Steal Missing Rift Eggs".
+	-- =====================================================
+	do
+		local faltantes = {}
+		local RiftOn = false
+		local UltimaConsulta = 0
+
+		local function Remoto(nombre)
+			local networking = Juego and Juego.Networking
+			if not networking then return nil end
+			local r = networking:FindFirstChild(nombre)
+			if r and (r:IsA("RemoteFunction") or r:IsA("RemoteEvent")) then return r end
+			return nil
+		end
+
+		local function Llamar(nombre, ...)
+			local r = Remoto(nombre)
+			if not r then return nil end
+			if r:IsA("RemoteFunction") then
+				local ok, a = pcall(r.InvokeServer, r, ...)
+				return ok and a or nil
+			end
+			local ok = pcall(r.FireServer, r, ...)
+			return ok or nil
+		end
+
+		-- Lo que ya tenés (inventario, huevos y el índice)
+		local function Poseidos()
+			local set = {}
+			local save = Juego and Juego.Save
+			if not save or type(save.Get) ~= "function" then return set end
+			local ok, datos = pcall(save.Get)
+			if not ok or type(datos) ~= "table" then return set end
+			for _, mapa in ipairs({datos.Inventory or {}, datos.EggInventory or {}, datos.Index or {}}) do
+				for clave, valor in pairs(mapa) do
+					if type(clave) == "string" then
+						set[clave] = true
+					elseif type(valor) == "table" then
+						local categoria = valor.Category or valor.AssetCategory
+						if categoria then set[tostring(categoria)] = true end
+					end
+				end
+			end
+			return set
+		end
+
+		local function ConsultarRift()
+			local estado = Llamar("RF/Rift/AskState")
+			if type(estado) ~= "table" then return false end
+			local requisitos = estado.Requirements or estado.requirements
+			if type(requisitos) ~= "table" then return false end
+			local poseidos = Poseidos()
+			faltantes = {}
+			local cuantos = 0
+			for _, requisito in pairs(requisitos) do
+				local categoria = type(requisito) == "table" and (requisito.Category or requisito.AssetCategory) or requisito
+				if type(categoria) == "string" and not poseidos[categoria] then
+					faltantes[categoria] = true
+					cuantos = cuantos + 1
+				end
+			end
+			if Objetivos and Objetivos.Lista then
+				for _, item in ipairs(Objetivos.Lista()) do
+					item.rift = faltantes[item.categoria] == true
+				end
+			end
+			if Objetivos and Objetivos.SetPreferidos then
+				if next(faltantes) == nil then
+					Objetivos.SetPreferidos(nil)
+				else
+					Objetivos.SetPreferidos(function(item)
+						return faltantes[item.categoria] == true
+					end)
+				end
+			end
+			return true, cuantos
+		end
+
+		task.spawn(function()
+			while ScreenGui.Parent do
+				task.wait(5)
+				if RiftOn and os.clock() - UltimaConsulta > 30 then
+					UltimaConsulta = os.clock()
+					local ok, cuantos = ConsultarRift()
+					if ok and cuantos and cuantos > 0 and Objetivos then
+						Objetivos.Notificar("Rift: faltan " .. cuantos .. " huevos (van primeros)", true)
+					end
+				end
+			end
+		end)
+
+		-- ---------- ventana de huevos específicos ----------
+		local categorias = {}
+		local seleccion = {}
+		local listaHecha = false
+
+		local EspShadow = Instance.new("Frame")
+		EspShadow.Size = UDim2.new(0, 268, 0, 304)
+		EspShadow.Position = UDim2.new(1, -278, 0, 470)
+		EspShadow.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+		EspShadow.BackgroundTransparency = 0.5
+		EspShadow.BorderSizePixel = 0
+		EspShadow.ZIndex = 54
+		EspShadow.Parent = ScreenGui
+
+		local EspShadowCorner = Instance.new("UICorner")
+		EspShadowCorner.CornerRadius = UDim.new(0, 16)
+		EspShadowCorner.Parent = EspShadow
+
+		local EspPanel = Instance.new("Frame")
+		EspPanel.Size = UDim2.new(0, 258, 0, 294)
+		EspPanel.Position = UDim2.new(1, -278, 0, 470)
+		EspPanel.BackgroundColor3 = Color3.fromRGB(9, 11, 17)
+		EspPanel.BackgroundTransparency = 0.06
+		EspPanel.BorderSizePixel = 0
+		EspPanel.Active = true
+		EspPanel.Draggable = true
+		EspPanel.ZIndex = 55
+		EspPanel.Parent = ScreenGui
+
+		local EspCorner = Instance.new("UICorner")
+		EspCorner.CornerRadius = UDim.new(0, 14)
+		EspCorner.Parent = EspPanel
+
+		local EspStroke = Instance.new("UIStroke")
+		EspStroke.Color = Color3.fromRGB(150, 200, 255)
+		EspStroke.Thickness = 1.4
+		EspStroke.Transparency = 0.2
+		EspStroke.Parent = EspPanel
+
+		local EspGrad = Instance.new("UIGradient")
+		EspGrad.Color = ColorSequence.new(Color3.fromRGB(24, 30, 44), Color3.fromRGB(9, 11, 17))
+		EspGrad.Rotation = 135
+		EspGrad.Parent = EspPanel
+
+		local EspTitulo = Instance.new("TextLabel")
+		EspTitulo.Size = UDim2.new(1, -24, 0, 18)
+		EspTitulo.Position = UDim2.new(0, 12, 0, 8)
+		EspTitulo.BackgroundTransparency = 1
+		EspTitulo.Text = "Huevos específicos"
+		EspTitulo.TextColor3 = Color3.fromRGB(150, 205, 255)
+		EspTitulo.Font = Enum.Font.GothamBold
+		EspTitulo.TextSize = 12
+		EspTitulo.TextXAlignment = Enum.TextXAlignment.Left
+		EspTitulo.ZIndex = 56
+		EspTitulo.Parent = EspPanel
+
+		local EspContador = Instance.new("TextLabel")
+		EspContador.Size = UDim2.new(1, -24, 0, 13)
+		EspContador.Position = UDim2.new(0, 12, 0, 24)
+		EspContador.BackgroundTransparency = 1
+		EspContador.Text = "vacío = roba todos"
+		EspContador.TextColor3 = Color3.fromRGB(130, 145, 170)
+		EspContador.Font = Enum.Font.GothamMedium
+		EspContador.TextSize = 9
+		EspContador.TextXAlignment = Enum.TextXAlignment.Left
+		EspContador.ZIndex = 56
+		EspContador.Parent = EspPanel
+
+		local EspScroll = Instance.new("ScrollingFrame")
+		EspScroll.Size = UDim2.new(1, -20, 1, -84)
+		EspScroll.Position = UDim2.new(0, 10, 0, 42)
+		EspScroll.BackgroundTransparency = 1
+		EspScroll.BorderSizePixel = 0
+		EspScroll.ScrollBarThickness = 3
+		EspScroll.ScrollBarImageColor3 = Color3.fromRGB(80, 110, 160)
+		EspScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+		EspScroll.ZIndex = 56
+		EspScroll.Parent = EspPanel
+
+		local botonesEsp = {}
+
+		local function aplicarEspecificos()
+			if not (Objetivos and Objetivos.SetFiltro) then return end
+			local cuantos = 0
+			for _ in pairs(seleccion) do cuantos = cuantos + 1 end
+			EspContador.Text = cuantos == 0 and "vacío = roba todos" or ("solo " .. cuantos .. " huevos elegidos")
+			if cuantos == 0 then
+				Objetivos.SetFiltro("especificos", nil)
+			else
+				Objetivos.SetFiltro("especificos", function(item)
+					return seleccion[item.categoria] == true
+				end)
+			end
+		end
+
+		local function pintarEspecificos()
+			for categoria, datos in pairs(botonesEsp) do
+				local activo = seleccion[categoria] == true
+				datos.boton.BackgroundColor3 = activo and Color3.fromRGB(26, 46, 74) or Color3.fromRGB(22, 24, 34)
+				datos.boton.TextColor3 = activo and Color3.fromRGB(155, 210, 255) or Color3.fromRGB(150, 160, 180)
+				datos.stroke.Color = activo and Color3.fromRGB(70, 140, 220) or Color3.fromRGB(60, 70, 100)
+			end
+		end
+
+		local function armarLista()
+			if listaHecha then return end
+			listaHecha = true
+			local assets = Juego and Juego.Assets
+			local directorio = assets and assets.Directory
+			if type(directorio) ~= "table" then
+				EspContador.Text = "no pude leer el directorio de huevos"
+				return
+			end
+			for categoria, cfg in pairs(directorio) do
+				if type(categoria) == "string" then
+					local nombre = (type(cfg) == "table" and (cfg.DisplayName or cfg.Name)) or categoria
+					table.insert(categorias, {id = categoria, nombre = tostring(nombre)})
+				end
+			end
+			table.sort(categorias, function(a, b)
+				return a.nombre < b.nombre
+			end)
+			if #categorias > 220 then
+				while #categorias > 220 do
+					table.remove(categorias)
+				end
+			end
+			for i, datos in ipairs(categorias) do
+				local b = Instance.new("TextButton")
+				b.Size = UDim2.new(1, -6, 0, 20)
+				b.Position = UDim2.new(0, 0, 0, (i - 1) * 22)
+				b.BackgroundColor3 = Color3.fromRGB(22, 24, 34)
+				b.Text = "  " .. datos.nombre
+				b.TextColor3 = Color3.fromRGB(150, 160, 180)
+				b.Font = Enum.Font.GothamBold
+				b.TextSize = 9
+				b.AutoButtonColor = false
+				b.TextXAlignment = Enum.TextXAlignment.Left
+				b.TextTruncate = Enum.TextTruncate.AtEnd
+				b.ZIndex = 57
+				b.Parent = EspScroll
+
+				local c = Instance.new("UICorner")
+				c.CornerRadius = UDim.new(1, 0)
+				c.Parent = b
+
+				local s = Instance.new("UIStroke")
+				s.Color = Color3.fromRGB(60, 70, 100)
+				s.Transparency = 0.5
+				s.Parent = b
+
+				b.MouseButton1Click:Connect(function()
+					seleccion[datos.id] = not seleccion[datos.id]
+					pintarEspecificos()
+					aplicarEspecificos()
+				end)
+
+				botonesEsp[datos.id] = {boton = b, stroke = s}
+			end
+			EspScroll.CanvasSize = UDim2.new(0, 0, 0, #categorias * 22 + 6)
+		end
+
+		task.spawn(function()
+			while ScreenGui.Parent do
+				task.wait(1)
+				if EspPanel.Visible then
+					pcall(armarLista)
+				end
+			end
+		end)
+
+		local LimpiarBtn = Instance.new("TextButton")
+		LimpiarBtn.Size = UDim2.new(0, 120, 0, 20)
+		LimpiarBtn.Position = UDim2.new(0, 12, 1, -28)
+		LimpiarBtn.BackgroundColor3 = Color3.fromRGB(28, 34, 48)
+		LimpiarBtn.Text = "LIMPIAR"
+		LimpiarBtn.TextColor3 = Color3.fromRGB(200, 160, 160)
+		LimpiarBtn.Font = Enum.Font.GothamBold
+		LimpiarBtn.TextSize = 9
+		LimpiarBtn.AutoButtonColor = false
+		LimpiarBtn.ZIndex = 56
+		LimpiarBtn.Parent = EspPanel
+
+		local LimpiarCorner = Instance.new("UICorner")
+		LimpiarCorner.CornerRadius = UDim.new(1, 0)
+		LimpiarCorner.Parent = LimpiarBtn
+
+		LimpiarBtn.MouseButton1Click:Connect(function()
+			seleccion = {}
+			pintarEspecificos()
+			aplicarEspecificos()
+		end)
+
+		if Gestor then
+			Gestor.Registrar("Huevos específicos", {EspShadow, EspPanel}, false)
+		end
+
+		if AjustesRegistrar then
+			AjustesRegistrar("Prioridad de Rift", function(on)
+				RiftOn = on and true or false
+				UltimaConsulta = 0
+				if not RiftOn then
+					faltantes = {}
+					if Objetivos and Objetivos.SetPreferidos then Objetivos.SetPreferidos(nil) end
+					for _, item in ipairs((Objetivos and Objetivos.Lista and Objetivos.Lista()) or {}) do
+						item.rift = false
+					end
+				end
+			end)
+			AjustesRegistrar("Huevos específicos", function(on)
+				if Gestor then Gestor.Panel("Huevos específicos", on) end
+			end)
+		end
+
+		AddCleanup(function()
+			RiftOn = false
+			faltantes = {}
+			pcall(function() EspShadow:Destroy() end)
+			pcall(function() EspPanel:Destroy() end)
+		end)
 	end
 
 	-- SERVER HOP
